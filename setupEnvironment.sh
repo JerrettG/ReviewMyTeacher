@@ -13,9 +13,9 @@
 # Confirm set up by using echo $CAPSTONE_REPO_NAME and it should return what you typed in.
 
 # Fill out the following values
-# The path of your repo on github. Don't include the whole URL, just the part after github.com/KenzieAcademy-SoftwareEngineering/
-export LBC_GROUP_NAME=replacethiswithyourgroupname
-export LBC_REPO_NAME=ata-lbc-project-$GITHUB_USERNAME
+# The path of your reRpo on github. Don't include the whole UL, just the part after github.com/KenzieAcademy-SoftwareEngineering/
+export LBC_GROUP_NAME=team6
+export LBC_REPO_NAME=ata-lbc-project-$LBC_GROUP_NAME
 
 # Do not modify the rest of these unless you have been instructed to do so.
 export LBC_PROJECT_NAME=lbcproject
