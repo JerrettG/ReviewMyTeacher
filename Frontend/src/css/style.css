@@ -64,3 +64,71 @@ a {
     color: white;
     border: none;
 }
+
+
+.search-submission-forms {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#search-form {
+    border: solid red;
+}
+
+#create-review-form {
+    background-color: lightgray;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
+}
+.rating {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.rating-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rating-container p {
+    padding-top: 0.5em;
+    width: 200px;
+}
+.rating input {
+    display: none;
+}
+.rating label {
+    width: 0;
+    height: 16px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.rating label i {
+    font-size: 1.5em;
+}
+.rating-1-label:hover {
+    color: red;
+}
+.rating-2-label:hover {
+    color: darkred;
+}
+.rating-3-label:hover {
+    color: darkgoldenrod;
+}
+.rating-4-label:hover {
+    color: darkgreen;
+}
+.rating-5-label:hover {
+    color: limegreen;
+}
+#comment-label {
+    margin-bottom: 0;
+}
+.comment-text-box {
+    width: 400px;
+    height: 200px;
+}

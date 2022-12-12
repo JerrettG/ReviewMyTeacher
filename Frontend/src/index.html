@@ -4,7 +4,8 @@
 <!--    <script type="text/javascript" src="index.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
+    <script src="https://kit.fontawesome.com/829e5d7ffb.js" crossorigin="anonymous"></script>
 </head>
 <body class="background">
     <header>
@@ -26,6 +27,187 @@
             </div>
         </nav>
     </header>
+    <section class="search-submission-forms">
+        <form id="search-form">
+            <select class="teacher-selection">
+                <option>Professor teacher</option>
+            </select>
+            <select class="course-selection">
+                <option>CS-101</option>
+            </select>
+        </form>
+        <form id="create-review-form">
+            <h1>Post a review</h1>
+            <div class="course-teacher-input">
+                <label>Course title:
+                    <select class="course-selection">
+                        <option>CS-101</option>
+                    </select>
+                </label>
+                <label>Teacher name:
+                    <select class="teacher-selection">
+                        <option>Professor teacher</option>
+                    </select>
+                </label>
+            </div>
+            <div class="rating-container">
+                <p>Presentation:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label  class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label  class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="rating-container">
+                <p>Outgoing:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label  class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label  class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="rating-container">
+                <p>Subject Knowledge:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="rating-container">
+                <p>Listening:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label  class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label  class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="rating-container">
+                <p>Communication:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label  class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label  class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="rating-container">
+                <p>Availability:</p>
+                <div class="rating">
+                    <label class="rating-1-label">
+                        <input type="radio" name="presentation" class="star1" value="1.0">
+                        <i class="fa-regular fa-face-tired"></i>
+                    </label>
+                    <label  class="rating-2-label">
+                        <input type="radio" name="presentation" class="star2" value="2.0">
+                        <i class="fa-regular fa-face-frown-open"></i>
+                    </label>
+                    <label  class="rating-3-label">
+                        <input type="radio" name="presentation" class="star3" value="3.0">
+                        <i class="fa-regular fa-face-meh"></i>
+                    </label>
+                    <label  class="rating-4-label">
+                        <input type="radio" name="presentation" class="star4" value="4.0">
+                        <i class="fa-regular fa-face-smile"></i>
+                    </label>
+                    <label  class="rating-5-label">
+                        <input type="radio" name="presentation" class="star5" value="5.0">
+                        <i class="fa-regular fa-face-grin-stars"></i>
+                    </label>
+                </div>
+            </div>
+            <p id="comment-label">Leave a comment:</p>
+            <textarea form="create-review-form" name="comment" class="comment-text-box"></textarea>
+
+        </form>
+    </section>
+    <section>
+
+    </section>
 
     <script src="/js/app.js"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
