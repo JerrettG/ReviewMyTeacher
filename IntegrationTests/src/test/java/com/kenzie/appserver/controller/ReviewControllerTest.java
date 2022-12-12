@@ -8,6 +8,7 @@ import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.service.model.Review;
 import jdk.jfr.internal.Utils;
 import net.andreinc.mockneat.MockNeat;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,10 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ReviewControllerTest {
     @Autowired
     private MockMvc mvc;
+    private QueryUtility queryUtility;
 
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
     private final ObjectMapper mapper = new ObjectMapper();
+    @BeforeEach
+    public void setup(){
+        this.queryUtility = new QueryUtility(mvc);
+
+    }
 
     @Test
     public void createReview_reviewDoesNotExist_reviewIsCreated() throws Exception {
@@ -34,8 +41,7 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val());
 
-        mvc.perform(post("/api/v1/reviewMyTeacher/teacher").accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(reviewCreateRequest)))
+        queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
                 .andExpect(status().isOk());
 
     }
@@ -58,10 +64,10 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val());
 
-        mvc.perform(post("/api/v1/reviewMyTeacher/teacher").accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(reviewCreateRequest)))
-                .andExpect(status().isOk());
+                queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
+                        .andExpect(status().isOk());
 
+                //TODO finish writing update portion of this test
     }
     @Test
     public void updateReview_reviewDoesNotExist_reviewIsNotUpdated(){
@@ -73,9 +79,8 @@ public class ReviewControllerTest {
                 mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val());
-
-        mvc.perform(post("/api/v1/reviewMyTeacher/teacher").accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(reviewCreateRequest))
+        //queryUtility methods are now available so we don't have to write so much code for the URL's
+        queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
                 .andExpect(status().isNoContent());
 
 
