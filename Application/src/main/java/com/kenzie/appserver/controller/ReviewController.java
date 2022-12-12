@@ -23,6 +23,7 @@ public class ReviewController {
             Review review = new Review();
             review.setTeacherName(reviewCreateRequest.getTeacherName());
             review.setComment(reviewCreateRequest.getComment());
+            review.setCourseTitle(reviewCreateRequest.getCourseTitle());
             review.setPresentation(reviewCreateRequest.getPresentation());
             review.setOutgoing(reviewCreateRequest.getOutgoing());
             review.setSubjectKnowledge(reviewCreateRequest.getSubjectKnowledge());
