@@ -11,12 +11,16 @@ public class ReviewService {
     public ReviewService(ReviewRepository reviewRepository){
         this.reviewRepository = reviewRepository;
     }
+<<<<<<< HEAD
 
     public void createReview(Review review){
         review.calculateAndSetTotalRating();
     }
 
 
+=======
+    
+>>>>>>> 0d011ef (ReveiwRepository added)
     public void updateReview(Review review){
         review.calculateAndSetTotalRating();
     }
