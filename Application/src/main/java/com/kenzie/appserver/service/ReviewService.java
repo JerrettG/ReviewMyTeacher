@@ -14,6 +14,10 @@ public class ReviewService {
     }
     //TODO create constructor with review repository parameter
 
+    public void createReview(Review review){
+        review.calculateAndSetTotalRating();
+    }
+
     public void updateReview(Review review){
         review.calculateAndSetTotalRating();
     }
