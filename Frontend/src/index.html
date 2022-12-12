@@ -1,40 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="examplePage.js"></script>
+<!--    <script type="text/javascript" src="index.js"></script>-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="background">
-    <header class="header" id="header">
-        <div class="site-title">
-            <a class="header_home" href="index.html">Example App</a>
-        </div>
+    <header>
+        <nav>
+            <div class="navbar">
+                <div class="navbar-logo-container">
+                    <p class="logo">ReviewMyTeacher</p>
+                </div>
+                <div class="account-dropdown">
+                    <div class="account-dropbutton-container">
+                        <button class="account-dropbutton">Account
+                            <i class="fa fa-caret-down"></i>
+                        </button>
+                    </div>
+                    <div class="account-dropdown-content">
+                        <a id="login-logout" class="dropdown-links">Account</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
-    <div class="card">
-        <h2>Create Example</h2>
-        <form class="card-content" id="create-form">
-            <p class="form-field">
-                <label>Name</label>
-                <input type="text" required class="validated-field" id="create-name-field">
-            </p>
-            <button type="submit">Create</button>
-        </form>
-    </div>
-    <div class="card">
-        <h2>Get By ID</h2>
-        <form class="card-content" id="get-by-id-form">
-            <p class="form-field">
-                <label>ID</label>
-                <input type="text" required class="validated-field" id="id-field">
-            </p>
-            <button type="submit">Get</button>
-        </form>
-    </div>
-    <div class="card" id="result">
-        <h2>Result:</h2>
-        <p id="result-info"></p>
-    </div>
 
+    <script src="/js/app.js"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 </body>
 </html>
