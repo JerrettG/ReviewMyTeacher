@@ -1,17 +1,19 @@
 package com.kenzie.appserver.controller;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTableMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.service.model.Review;
+import jdk.jfr.internal.Utils;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -39,6 +41,10 @@ public class ReviewControllerTest {
     }
     @Test
     public void retrieveReviewsForTeacher_reviewExists_reviewIsRetrieved(){
+        ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val());
 
     }
     @Test
@@ -62,7 +68,17 @@ public class ReviewControllerTest {
 
     }
     @Test
-    public void deleteReview_reviewExists_reviewDeleted(){
+    public void deleteReview_reviewExists_reviewDeleted() throws Exception {
+        ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val());
+
+        mvc.perform(post("/api/v1/reviewMyTeacher/teacher").accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(reviewCreateRequest))
+                .andExpect(status().isNoContent());
+
+
 
     }
     @Test
