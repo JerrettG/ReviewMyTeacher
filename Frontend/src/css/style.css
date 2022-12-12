@@ -5,85 +5,62 @@
     --error-color: rgba(194, 0, 0, 0.71);
 }
 
-.background {
-    background-color: #eaeded;
+body{
     margin: 0;
-    counter-reset: section;
+    font-family: 'Open Sans', sans-serif;
+    background: white;
 }
 
-.header {
-    /* Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
-    display: flex;
-    justify-content: space-between;
+a {
+    color: white;
+}
+.logo {
+    font-size: large;
+    color: white;
+}
+
+.navbar {
+    background-color: #2d2d2d;
+    box-shadow: 1px 1px 4px 0 rgba(0,0,0, 0.5);
+    width: 100%;
+    z-index: 3;
+    display:flex;
+    flex-direction: row;
     align-items: center;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 0 20px;
+    justify-content: space-between;
+
+}
+.account-dropbutton-container {
+    padding:20px;
 }
 
-.header_home {
-    font-size: 36px;
-    line-height: 40px;
-    height: 100px;
-    text-decoration: none;
-    color: var(--secondary-color);
-}
-
-.header_nav_link {
-    margin-left: 20px;
-    vertical-align: top;
-    line-height: 40px;
-}
-
-.about {
-    margin-left: 20px;
-}
-
-.button, button {
-    background: #aed9ff;
-    padding: 3px;
-    border-radius: 3px;
-    text-decoration: none;
-    color: black;
-    border: 1px solid black;
-    cursor: pointer;
-}
-
-.button:hover, button:hover {
-    background: #9cc3e4;
-}
-
-.card {
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
-    margin: 20px;
-    padding: 10px 20px;
-}
-
-.validated-field:invalid {
-    outline: 2px solid var(--error-color);
-}
-.validated-field:focus:invalid {
-    color: var(--error-color);
-}
-
-.card-content {
-    max-width: 500px;
-}
-
-.card-content .form-field {
-    display: flex;
-    flex-direction: column;
-}
-
-#concert-list li {
-    margin-bottom: 1rem;
-}
-
-.state {
+.account-dropdown-content {
     display: none;
+    position: absolute;
+    background-color: #2d2d2d;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
-.state.active {
+.account-dropdown:hover .account-dropdown-content {
     display: block;
+}
+
+.dropdown-links {
+    float: none;
+    color: #ffffff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+.dropdown-links:hover {
+    background-color: #646464;
+}
+
+.account-dropbutton {
+    background: none;
+    color: white;
+    border: none;
 }
