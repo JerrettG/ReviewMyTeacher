@@ -8,20 +8,26 @@ import org.springframework.stereotype.Service;
 public class ReviewService {
     private final ReviewRepository reviewRepository;
 
-    public ReviewService(ReviewRepository reviewRepository){
+    public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
-<<<<<<< HEAD
 
-    public void createReview(Review review){
+
+    public Review createReview(Review review) {
         review.calculateAndSetTotalRating();
+        review.setDatePosted();
+        //TODO convert review into a entity
+        //TODO We need to add a call to repository to create a review
+        return review;
     }
 
 
-=======
-    
->>>>>>> 0d011ef (ReveiwRepository added)
-    public void updateReview(Review review){
+    public Review updateReview(Review review) {
         review.calculateAndSetTotalRating();
+        //TODO convert review into a entity
+        //TODO We need to add a call to repository to update a review
+        return review;
+
     }
+
 }

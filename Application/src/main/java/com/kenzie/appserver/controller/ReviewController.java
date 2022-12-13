@@ -30,8 +30,21 @@ public class ReviewController {
             review.setListening(reviewCreateRequest.getListening());
             review.setCommunication(reviewCreateRequest.getCommunication());
             review.setAvailability(reviewCreateRequest.getAvailability());
-            reviewService.createReview(review);
-            return ResponseEntity.accepted().build();
+            Review createdReview = reviewService.createReview(review);
+            ReviewResponse reviewResponse = new ReviewResponse(
+                    createdReview.getTeacherName(),
+                    createdReview.getDatePosted(),
+                    createdReview.getTotalRating(),
+                    createdReview.getCourseTitle(),
+                    createdReview.getUsername(),
+                    createdReview.getComment(),
+                    createdReview.getPresentation(),
+                    createdReview.getOutgoing(),
+                    createdReview.getSubjectKnowledge(),
+                    createdReview.getListening(),
+                    createdReview.getCommunication(),
+                    createdReview.getAvailability());
+            return ResponseEntity.accepted().body(reviewResponse);
 
     }
 
@@ -47,8 +60,21 @@ public class ReviewController {
             review.setListening(reviewUpdateRequest.getListening());
             review.setCommunication(reviewUpdateRequest.getCommunication());
             review.setAvailability(reviewUpdateRequest.getAvailability());
-            reviewService.updateReview(review);
-            return ResponseEntity.accepted().build();
+            Review updatedReview = reviewService.updateReview(review);
+            ReviewResponse reviewResponse = new ReviewResponse(
+                    updatedReview.getTeacherName(),
+                    updatedReview.getDatePosted(),
+                    updatedReview.getTotalRating(),
+                    updatedReview.getCourseTitle(),
+                    updatedReview.getUsername(),
+                    updatedReview.getComment(),
+                    updatedReview.getPresentation(),
+                    updatedReview.getOutgoing(),
+                    updatedReview.getSubjectKnowledge(),
+                    updatedReview.getListening(),
+                    updatedReview.getCommunication(),
+                    updatedReview.getAvailability());
+            return ResponseEntity.accepted().body(reviewResponse);
         } catch (ConditionalCheckFailedException e){
             return ResponseEntity.notFound().build();
         }
