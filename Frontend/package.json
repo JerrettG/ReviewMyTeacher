@@ -10,7 +10,9 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "prepublishOnly": "npm run build",
+    "build": "webpack -p --mode=production --devtool=source-map"
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^2.0.1",

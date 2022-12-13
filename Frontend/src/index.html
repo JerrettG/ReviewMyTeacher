@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--    <script type="text/javascript" src="index.js"></script>-->
+    <script type="module" src="/pages/index.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -28,24 +28,26 @@
         </nav>
     </header>
     <section class="search-submission-forms">
-        <form id="search-form">
-            <select class="teacher-selection">
-                <option>Professor teacher</option>
-            </select>
-            <select class="course-selection">
+        <form id="search-by-course-form">
+            <select class="course-selection" id="selected-course">
                 <option>CS-101</option>
+            </select>
+        </form>
+        <form id="search-by-teacher-form">
+            <select class="teacher-selection" id="selected-teacher">
+                <option>Professor teacher</option>
             </select>
         </form>
         <form id="create-review-form">
             <h1>Post a review</h1>
             <div class="course-teacher-input">
                 <label>Course title:
-                    <select class="course-selection">
+                    <select class="course-selection" name="courseTitle">
                         <option>CS-101</option>
                     </select>
                 </label>
                 <label>Teacher name:
-                    <select class="teacher-selection">
+                    <select class="teacher-selection" name="teacherName">
                         <option>Professor teacher</option>
                     </select>
                 </label>
@@ -53,24 +55,24 @@
             <div class="rating-container">
                 <p>Presentation:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input id="presentation-rating-1" type="radio" name="presentation" class="star1" value="1.0">
+                    <label class="rating-1-label" for="presentation-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label  class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="presentation" class="star2" value="2.0" id="presentation-rating-2">
+                    <label  class="rating-2-label" for="presentation-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label  class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="presentation" class="star3" value="3.0" id="presentation-rating-3">
+                    <label  class="rating-3-label" for="presentation-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="presentation" class="star4" value="4.0" id="presentation-rating-4">
+                    <label  class="rating-4-label" for="presentation-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="presentation" class="star5" value="5.0" id="presentation-rating-5">
+                    <label  class="rating-5-label" for="presentation-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
@@ -78,24 +80,24 @@
             <div class="rating-container">
                 <p>Outgoing:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input id="outgoing-rating-1" type="radio" name="outgoing" class="star1" value="1.0">
+                    <label class="rating-1-label" for="outgoing-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label  class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="outgoing" class="star2" value="2.0" id="outgoing-rating-2">
+                    <label  class="rating-2-label" for="outgoing-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label  class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="outgoing" class="star3" value="3.0" id="outgoing-rating-3">
+                    <label  class="rating-3-label" for="outgoing-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="outgoing" class="star4" value="4.0" id="outgoing-rating-4">
+                    <label  class="rating-4-label" for="outgoing-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="outgoing" class="star5" value="5.0" id="outgoing-rating-5">
+                    <label  class="rating-5-label" for="outgoing-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
@@ -103,24 +105,24 @@
             <div class="rating-container">
                 <p>Subject Knowledge:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input id="subject-knowledge-rating-1" type="radio" name="subjectKnowledge" class="star1" value="1.0">
+                    <label class="rating-1-label" for="subject-knowledge-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="subjectKnowledge" class="star2" value="2.0" id="subject-knowledge-rating-2">
+                    <label  class="rating-2-label" for="subject-knowledge-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="subjectKnowledge" class="star3" value="3.0" id="subject-knowledge-rating-3">
+                    <label  class="rating-3-label" for="subject-knowledge-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="subjectKnowledge" class="star4" value="4.0" id="subject-knowledge-rating-4">
+                    <label  class="rating-4-label" for="subject-knowledge-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="subjectKnowledge" class="star5" value="5.0" id="subject-knowledge-rating-5">
+                    <label  class="rating-5-label" for="subject-knowledge-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
@@ -128,24 +130,24 @@
             <div class="rating-container">
                 <p>Listening:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input id="listening-rating-1" type="radio" name="listening" class="star1" value="1.0">
+                    <label class="rating-1-label" for="listening-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label  class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="listening" class="star2" value="2.0" id="listening-rating-2">
+                    <label  class="rating-2-label" for="listening-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label  class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="listening" class="star3" value="3.0" id="listening-rating-3">
+                    <label  class="rating-3-label" for="listening-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="listening" class="star4" value="4.0" id="listening-rating-4">
+                    <label  class="rating-4-label" for="listening-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="listening" class="star5" value="5.0" id="listening-rating-5">
+                    <label  class="rating-5-label" for="listening-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
@@ -153,24 +155,24 @@
             <div class="rating-container">
                 <p>Communication:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input type="radio" name="communication" class="star1" value="1.0" id="communication-rating-1">
+                    <label class="rating-1-label" for="communication-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label  class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="communication" class="star2" value="2.0" id="communication-rating-2">
+                    <label  class="rating-2-label" for="communication-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label  class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="communication" class="star3" value="3.0" id="communication-rating-3">
+                    <label  class="rating-3-label" for="communication-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="communication" class="star4" value="4.0" id="communication-rating-4">
+                    <label  class="rating-4-label" for="communication-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="communication" class="star5" value="5.0" id="communication-rating-5">
+                    <label  class="rating-5-label" for="communication-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
@@ -178,35 +180,53 @@
             <div class="rating-container">
                 <p>Availability:</p>
                 <div class="rating">
-                    <label class="rating-1-label">
-                        <input type="radio" name="presentation" class="star1" value="1.0">
+                    <input id="availability-rating-1" type="radio" name="availability" class="star1" value="1.0">
+                    <label class="rating-1-label" for="availability-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <label  class="rating-2-label">
-                        <input type="radio" name="presentation" class="star2" value="2.0">
+                    <input type="radio" name="availability" class="star2" value="2.0" id="availability-rating-2">
+                    <label  class="rating-2-label" for="availability-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <label  class="rating-3-label">
-                        <input type="radio" name="presentation" class="star3" value="3.0">
+                    <input type="radio" name="availability" class="star3" value="3.0" id="availability-rating-3">
+                    <label  class="rating-3-label" for="availability-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <label  class="rating-4-label">
-                        <input type="radio" name="presentation" class="star4" value="4.0">
+                    <input type="radio" name="availability" class="star4" value="4.0" id="availability-rating-4">
+                    <label  class="rating-4-label" for="availability-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <label  class="rating-5-label">
-                        <input type="radio" name="presentation" class="star5" value="5.0">
+                    <input type="radio" name="availability" class="star5" value="5.0" id="availability-rating-5">
+                    <label  class="rating-5-label" for="availability-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
             </div>
             <p id="comment-label">Leave a comment:</p>
             <textarea form="create-review-form" name="comment" class="comment-text-box"></textarea>
-
         </form>
     </section>
     <section>
-
+        <div class="result-info">
+            <div class="review-container">
+                <div class="review-info">
+                    <div class="review-info-top-container">
+                        <div class="total-rating-container"><span class="total-rating">4.0</span></div>
+                        <div class="course-title-container"><span class="course-title">Course title: COMPSCI-101</span></div>
+                        <div class="teacher-name-container"><span class="teacher-name">Teacher name: Professor Teacher</span></div>
+                    </div>
+                    <div class="review-info-mid-container">
+                        <div class="review-info-rating-container"><span class="review-info-rating">Presentation: 3.0</span></div>
+                        <div class="review-info-rating-container"><span class="review-info-rating">Outgoing: 3.0</span></div>
+                        <div class="review-info-rating-container"><span class="review-info-rating">Subject knowledge: 3.0</span></div>
+                        <div class="review-info-rating-container"><span class="review-info-rating">Listening: 3.0</span></div>
+                        <div class="review-info-rating-container"><span class="review-info-rating">Communication: 3.0</span></div>
+                        <div class="review-info-rating-container"><span class="review-info-rating">Availability: 3.0</span></div>
+                    </div>
+                    <div class="comment-display"><span>Lorem Ipsum adlfk;jasldfjkalsdfjlaksjflksadjf</span></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <script src="/js/app.js"></script>

@@ -67,6 +67,7 @@ a {
 
 
 .search-submission-forms {
+    margin-top: 2em;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -110,25 +111,85 @@ a {
 .rating label i {
     font-size: 1.5em;
 }
-.rating-1-label:hover {
+.rating-1-label:hover,
+.star1:checked + label{
     color: red;
 }
-.rating-2-label:hover {
+.rating-2-label:hover,
+.star2:checked + label{
     color: darkred;
 }
-.rating-3-label:hover {
+.rating-3-label:hover,
+.star3:checked + label{
     color: darkgoldenrod;
 }
-.rating-4-label:hover {
+.rating-4-label:hover,
+.star4:checked + label{
     color: darkgreen;
 }
-.rating-5-label:hover {
+.rating-5-label:hover,
+.star5:checked + label{
     color: limegreen;
 }
 #comment-label {
     margin-bottom: 0;
 }
 .comment-text-box {
+    min-width: 400px;
+    max-width: 400px;
     width: 400px;
+    min-height: 200px;
     height: 200px;
+    padding: 1em;
 }
+.result-info {
+    margin: 3em;
+}
+.review-container {
+    min-width: 800px;
+    width: 100%;
+    height: 400px;
+    background-color: lightslategrey;
+}
+
+.review-info {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 2em;
+}
+
+.review-info-top-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 1em;
+}
+.review-info-mid-container {
+    clear: left;
+    display: flex;
+    flex-direction: row;
+    column-gap: 1em;
+}
+
+.total-rating-container {
+    background-color: beige;
+    width: 75px;
+    height: 50px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+.total-rating {
+    font-size: 2em;
+}
+
+.comment-display {
+    height: 175px;
+    background-color: white;
+    padding: 1em;
+}
+
+
