@@ -1,9 +1,12 @@
 package com.kenzie.appserver.service.model;
 
+import java.time.LocalDateTime;
+
 public class Review {
     private String teacherName;
     private String courseTitle;
     private String datePosted;
+    private String username;
     private double totalRating;
     private String comment;
     private double presentation;
@@ -16,10 +19,11 @@ public class Review {
 
     }
 
-    public Review(String teacherName, String courseTitle, String datePosted, double totalRating, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
+    public Review(String teacherName, String courseTitle, String datePosted, String username, double totalRating, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.teacherName = teacherName;
         this.courseTitle = courseTitle;
         this.datePosted = datePosted;
+        this.username = username;
         this.totalRating = totalRating;
         this.comment = comment;
         this.presentation = presentation;
@@ -52,6 +56,14 @@ public class Review {
 
     public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public double getTotalRating() {
@@ -125,5 +137,8 @@ public class Review {
                 this.listening +
                 this.communication +
                 this.availability) / 6;
+    }
+    public void  setDatePosted(){
+        this.datePosted = LocalDateTime.now().toString();
     }
 }

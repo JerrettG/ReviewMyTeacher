@@ -4,6 +4,7 @@ public class ReviewCreateRequest {
     private String teacherName;
     private String courseTitle;
     private String comment;
+    private String username;
     private double presentation;
     private double outgoing;
     private double subjectKnowledge;
@@ -11,16 +12,17 @@ public class ReviewCreateRequest {
     private double communication;
     private double availability;
 
-    public ReviewCreateRequest(String teacherName, String courseTitle, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double avaibility) {
+    public ReviewCreateRequest(String teacherName, String courseTitle, String comment, String username, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.teacherName = teacherName;
         this.courseTitle = courseTitle;
         this.comment = comment;
+        this.username = username;
         this.presentation = presentation;
         this.outgoing = outgoing;
         this.subjectKnowledge = subjectKnowledge;
         this.listening = listening;
         this.communication = communication;
-        this.availability = avaibility;
+        this.availability = availability;
     }
 
     public String getTeacherName() {
@@ -45,6 +47,14 @@ public class ReviewCreateRequest {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public double getPresentation() {

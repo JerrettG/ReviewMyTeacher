@@ -30,6 +30,21 @@ public class ReviewResponse {
     @JsonProperty("avaiability")
     private double avaiability;
 
+    public ReviewResponse(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double avaiability) {
+        this.teacherName = teacherName;
+        this.datePosted = datePosted;
+        this.totalRating = totalRating;
+        this.courseTitle = courseTitle;
+        this.username = username;
+        this.comment = comment;
+        this.presentation = presentation;
+        this.outgoing = outgoing;
+        this.subjectKnowledge = subjectKnowledge;
+        this.listening = listening;
+        this.communication = communication;
+        this.avaiability = avaiability;
+    }
+
     public String getTeacherName() {
         return teacherName;
     }
