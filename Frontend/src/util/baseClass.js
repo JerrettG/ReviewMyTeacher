@@ -1,5 +1,3 @@
-import Toastify from "toastify-js";
-
 export default class BaseClass {
     /**
      * Binds all of the methods to "this" object. These methods will now have the state of the instance object.
