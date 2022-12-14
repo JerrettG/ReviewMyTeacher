@@ -1,8 +1,6 @@
-import BaseClass from "../util/baseClass";
-import axios from 'axios'
-
+import BaseClass from "../util/baseClass.js";
 /**
- * Client to call the MusicPlaylistService.
+ * Client to call the ReviewMyTeacherService.
  *
  * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
@@ -13,10 +11,9 @@ export default class ReviewClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getExample', 'createExample'];
+        const methodsToBind = ['clientLoaded', 'getReviewsByTeacherName','getReviewsByCourseTitle', 'createReview', 'updateReview', 'deleteReview'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
-        this.clientLoaded(axios);
     }
 
     /**
@@ -32,42 +29,49 @@ export default class ReviewClient extends BaseClass {
 
     /**
      * Gets the concert for the given ID.
-     * @param id Unique identifier for a concert
+     * @param teacherName
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    async getReviewsByTeacher(teacherName, errorCallback) {
+    async getReviewsByTeacherName(teacherName, errorCallback) {
         try {
-            const response = await this.client.get(`/api/v1/reviewMyTeacher/teacher/${teacherName}`);
+            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByTeacher", error, errorCallback)
         }
     }
 
-    async getReviewsByCourse(courseTitle, errorCallback) {
+    async getReviewsByCourseTitle(courseTitle, errorCallback) {
         try {
-            const response = await this.client.get(`/api/v1/reviewMyTeacher/course/${courseTitle}`);
+            const response = await fetch(`/api/v1/reviewMyTeacher/course/${courseTitle}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByCourse", error, errorCallback)
         }
     }
 
-    async createReview(teacherName, courseTitle, comment, presentation,
+    async createReview(teacherName, courseTitle, username, comment, presentation,
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
-            const response = await this.client.post(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
-                teacherName: teacherName,
-                courseTitle: courseTitle,
-                comment: comment,
-                presentation: presentation,
-                availability: availability,
-                outgoing: outgoing,
-                listening: listening,
-                communication: communication,
-                subjectKnowledge: subjectKnowledge
+            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: {
+                    teacherName: teacherName,
+                    courseTitle: courseTitle,
+                    comment: comment,
+                    presentation: presentation,
+                    availability: availability,
+                    outgoing: outgoing,
+                    listening: listening,
+                    communication: communication,
+                    subjectKnowledge: subjectKnowledge
+                }
             });
             return response.data;
         } catch (error) {
@@ -78,16 +82,23 @@ export default class ReviewClient extends BaseClass {
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
-            const response = await this.client.put(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
-                teacherName: teacherName,
-                datePosted: datePosted,
-                comment: comment,
-                presentation: presentation,
-                availability: availability,
-                outgoing: outgoing,
-                listening: listening,
-                communication: communication,
-                subjectKnowledge: subjectKnowledge
+            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`,  {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "PUT",
+                body: {
+                    teacherName: teacherName,
+                    datePosted: datePosted,
+                    comment: comment,
+                    presentation: presentation,
+                    availability: availability,
+                    outgoing: outgoing,
+                    listening: listening,
+                    communication: communication,
+                    subjectKnowledge: subjectKnowledge
+                }
             });
             return response.data;
         } catch (error) {
@@ -96,9 +107,16 @@ export default class ReviewClient extends BaseClass {
     }
     async deleteReview(teacherName, datePosted) {
         try {
-            const response = await this.client.post(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
-                teacherName: teacherName,
-                datePosted: datePosted
+            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`,  {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "DELETE",
+                body: {
+                    teacherName: teacherName,
+                    datePosted: datePosted,
+                }
             });
             return response.data;
         } catch (error) {
