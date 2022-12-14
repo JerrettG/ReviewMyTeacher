@@ -7,7 +7,7 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "Review")
 public class ReviewEntity {
 
-    public static final String DATE_POSTED_INDEX = "DatePostedIndex";
+
     public static final String COURSE_TITLE_INDEX = "CourseTitleIndex";
     public static final String USERNAME_INDEX = "UsernameIndex";
 
@@ -32,7 +32,8 @@ public class ReviewEntity {
         this.teacherName = teacherName;
     }
 
-    @DynamoDBIndexRangeKey(globalSecondaryIndexName = DATE_POSTED_INDEX, attributeName = "datePosted")
+    @DynamoDBIndexRangeKey(globalSecondaryIndexNames = {COURSE_TITLE_INDEX, USERNAME_INDEX})
+    @DynamoDBRangeKey(attributeName = "datePosted")
     public String getDatePosted() {
         return datePosted;
     }
