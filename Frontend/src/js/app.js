@@ -1,7 +1,7 @@
 let auth0Client = null;
 
 
-const fetchAuthConfig = () => fetch("/auth_config.json");
+const fetchAuthConfig = async () => await fetch("/auth_config.json");
 
 const configureClient = async () => {
     const response = await fetchAuthConfig();
@@ -43,9 +43,13 @@ const updateUI = async () => {
         loginLogout.innerHTML = "Login";
         loginLogout.onclick = login;
     }
+
     else if (isAuthenticated) {
+        const user = await auth0Client.getUser();
         loginLogout.innerHTML = "Logout";
         loginLogout.onclick = logout;
+        //display username if user is logged in
+        document.getElementById('account-dropbutton').innerHTML = `${user.nickname} <i class="fa-solid fa-user"></i>`;
     }
 
 };
