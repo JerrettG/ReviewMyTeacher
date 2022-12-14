@@ -19,9 +19,27 @@ public class ReviewEntity {
     private String comment;
     private double presentation;
     private double outgoing;
+    private double subjectKnowledge;
     private double listening;
     private double communication;
     private double availability;
+
+    public ReviewEntity() {}
+
+    public ReviewEntity(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
+        this.teacherName = teacherName;
+        this.datePosted = datePosted;
+        this.totalRating = totalRating;
+        this.courseTitle = courseTitle;
+        this.username = username;
+        this.comment = comment;
+        this.presentation = presentation;
+        this.outgoing = outgoing;
+        this.subjectKnowledge = subjectKnowledge;
+        this.listening = listening;
+        this.communication = communication;
+        this.availability = availability;
+    }
 
     @DynamoDBHashKey(attributeName = "teacherName")
     public String getTeacherName() {
@@ -96,6 +114,9 @@ public class ReviewEntity {
         this.outgoing = outgoing;
     }
 
+    @DynamoDBAttribute(attributeName = "subjectKnowledge")
+    public double getSubjectKnowledge() {return subjectKnowledge;}
+    public void setSubjectKnowledge(double subjectKnowledge) {this.subjectKnowledge = subjectKnowledge;}
     @DynamoDBAttribute(attributeName = "listening")
     public double getListening() {
         return listening;

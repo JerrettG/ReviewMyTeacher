@@ -19,6 +19,7 @@ public class Review {
 
     }
 
+
     public Review(String teacherName, String courseTitle, String datePosted, String username, double totalRating, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.teacherName = teacherName;
         this.courseTitle = courseTitle;

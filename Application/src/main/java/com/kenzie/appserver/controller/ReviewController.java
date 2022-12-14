@@ -79,4 +79,20 @@ public class ReviewController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    private ReviewResponse convertToResponse(Review review) {
+        return new ReviewResponse(
+                review.getTeacherName(),
+                review.getDatePosted(),
+                review.getTotalRating(),
+                review.getCourseTitle(),
+                review.getUsername(),
+                review.getComment(),
+                review.getPresentation(),
+                review.getOutgoing(),
+                review.getSubjectKnowledge(),
+                review.getListening(),
+                review.getCommunication(),
+                review.getAvailability());
+    }
 }
