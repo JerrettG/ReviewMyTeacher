@@ -98,7 +98,8 @@ public class ReviewControllerTest {
                 reviewResponse.getAvaiability());
 
                queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
-                       .andExpect(status().isAccepted()).andExpect(jsonPath("teacherName").value(reviewResponse.getTeacherName()))
+                       .andExpect(status().isAccepted())
+                       .andExpect(jsonPath("teacherName").value(reviewResponse.getTeacherName()))
                        .andExpect(jsonPath("datePosted").value(reviewResponse.getDatePosted()))
                        .andExpect(jsonPath("comment").value(reviewUpdateRequest.getComment()));
     }
