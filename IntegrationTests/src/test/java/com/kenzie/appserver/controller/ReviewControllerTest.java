@@ -91,15 +91,9 @@ public class ReviewControllerTest {
     @Test
     public void updateReview_reviewDoesNotExist_reviewIsNotUpdated() throws Exception {
         ReviewUpdateRequest reviewUpdateRequest = new ReviewUpdateRequest(
-                mockNeat.strings().val(),
-                mockNeat.strings().val(),
-                mockNeat.strings().val(),
-                mockNeat.doubles().val(),
-                mockNeat.doubles().val(),
-                mockNeat.doubles().val(),
-                mockNeat.doubles().val(),
-                mockNeat.doubles().val(),
-                mockNeat.doubles().val()
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.strings().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val()
         );
         queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
                 .andExpect(status().isNotFound());

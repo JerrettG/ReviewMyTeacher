@@ -24,8 +24,10 @@ public class ReviewService {
     }
 
     public List<Review> getAllByCourseTitle(String courseTitle) {
-        //TODO fill out method
-        return new ArrayList<>();
+        List<ReviewEntity> reviewEntities = reviewRepository.findAllByCourseTitle(courseTitle);
+        List<Review> reviews = new ArrayList<>();
+        reviewEntities.forEach(entity -> reviews.add(convertToReview(entity)));
+        return reviews;
     }
 
     public Review createReview(Review review) {
@@ -46,7 +48,8 @@ public class ReviewService {
     }
 
     public void deleteReview(Review review) {
-        //TODO fill out method
+        ReviewEntity entity = convertToEntity(review);
+        reviewRepository.delete(entity);
     }
 
 
