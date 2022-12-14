@@ -62,6 +62,7 @@ export default class ReviewClient extends BaseClass {
                 },
                 method: "POST",
                 body: {
+<<<<<<< HEAD
                     teacherName: teacherName,
                     courseTitle: courseTitle,
                     comment: comment,
@@ -71,6 +72,17 @@ export default class ReviewClient extends BaseClass {
                     listening: listening,
                     communication: communication,
                     subjectKnowledge: subjectKnowledge
+=======
+                teacherName: teacherName,
+                courseTitle: courseTitle,
+                comment: comment,
+                presentation: presentation,
+                availability: availability,
+                outgoing: outgoing,
+                listening: listening,
+                communication: communication,
+                subjectKnowledge: subjectKnowledge
+>>>>>>> b00b3c0 (Added username retrieval from auth0 and finished up reviewClient.js)
                 }
             });
             return response.data;
