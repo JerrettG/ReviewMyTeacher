@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.controller.model.ReviewCreateRequest;
+import com.kenzie.appserver.controller.model.ReviewDeleteRequest;
 import com.kenzie.appserver.controller.model.ReviewResponse;
 import com.kenzie.appserver.controller.model.ReviewUpdateRequest;
 import com.kenzie.appserver.service.model.Review;
@@ -40,7 +41,7 @@ public class ReviewControllerTest {
     public void createReview_reviewDoesNotExist_reviewIsCreated() throws Exception {
             //Create a review
         ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
-                mockNeat.strings().val(), mockNeat.strings().val(),mockNeat.users().valStr(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
@@ -48,22 +49,44 @@ public class ReviewControllerTest {
                 .andExpect(status().isOk());
 
     }
+
     @Test
-    public void retrieveReviewsForTeacher_reviewExists_reviewIsRetrieved(){
+    public void retrieveReviewsForTeacher_reviewExists_reviewIsRetrieved() throws Exception{
         ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
-                mockNeat.strings().val(), mockNeat.strings().val(),mockNeat.users().valStr(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
-    }
-    @Test
-    public void retrieveReviewsForCourse_reviewsExist_reviewsAreRetrieved(){
+        String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
+        queryUtility.reviewControllerClient.getAllReviewsForCourse(reviewCreateRequest.getCourseTitle())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].teacherName").value(reviewResponse.getCourseTitle()))
+                .andExpect(jsonPath("$[0].datePosted").value(reviewResponse.getDatePosted()));
 
     }
+
+    @Test
+    public void retrieveReviewsForCourse_reviewsExist_reviewsAreRetrieved() throws Exception{
+        ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
+
+        String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
+        queryUtility.reviewControllerClient.getAllReviewsForCourse(reviewCreateRequest.getCourseTitle())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].courseTitle").value(reviewResponse.getCourseTitle()))
+                .andExpect(jsonPath("$[0].datePosted").value(reviewResponse.getDatePosted()));
+    }
+
     @Test
     public void updateReview_reviewExists_reviewIsUpdated() throws Exception {
         ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
-                mockNeat.strings().val(), mockNeat.strings().val(),mockNeat.users().valStr(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
@@ -79,41 +102,45 @@ public class ReviewControllerTest {
                 reviewResponse.getSubjectKnowledge(),
                 reviewResponse.getListening(),
                 reviewResponse.getCommunication(),
-                reviewResponse.getAvaiability()
-        );
-
+                reviewResponse.getAvaiability());
 
                queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
                        .andExpect(status().isAccepted()).andExpect(jsonPath("teacherName").value(reviewResponse.getTeacherName()))
                        .andExpect(jsonPath("datePosted").value(reviewResponse.getDatePosted()))
                        .andExpect(jsonPath("comment").value(reviewUpdateRequest.getComment()));
     }
+
     @Test
     public void updateReview_reviewDoesNotExist_reviewIsNotUpdated() throws Exception {
         ReviewUpdateRequest reviewUpdateRequest = new ReviewUpdateRequest(
                 mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.strings().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
-                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val()
-        );
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
         queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
                 .andExpect(status().isNotFound());
     }
+
     @Test
     public void deleteReview_reviewExists_reviewDeleted() throws Exception {
         ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
-                mockNeat.strings().val(), mockNeat.strings().val(),mockNeat.users().valStr(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
-        //queryUtility methods are now available so we don't have to write so much code for the URL's
-        queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                .andExpect(status().isNoContent());
 
-
-
+        String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
+        ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(reviewResponse.getTeacherName(), reviewResponse.getDatePosted());
+        queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
+                .andExpect(status().isOk());
     }
+
     @Test
-    public void deleteReview_reviewDoesNotExist_reviewDoesNotDelete(){
-        //TODO
+    public void deleteReview_reviewDoesNotExist_reviewDoesNotDelete() throws Exception{
+        ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(mockNeat.strings().val(),
+                mockNeat.strings().val());
+        queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
+                .andExpect(status().isBadRequest());
     }
 
 }
