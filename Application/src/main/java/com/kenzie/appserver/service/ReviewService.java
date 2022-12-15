@@ -1,5 +1,7 @@
 package com.kenzie.appserver.service;
 
+import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
 import com.kenzie.appserver.service.model.Review;
@@ -42,7 +44,11 @@ public class ReviewService {
     public Review updateReview(Review review) {
         review.calculateAndSetTotalRating();
         ReviewEntity entity = convertToEntity(review);
-        reviewRepository.save(entity);
+        try{
+            reviewRepository.save(entity);
+        } catch (ConditionalCheckFailedException e){
+            throw new ReviewNotFoundException();
+        }
         return review;
 
     }

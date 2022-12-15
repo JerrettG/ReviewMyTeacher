@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.controller.model.ReviewUpdateRequest;
 import com.kenzie.appserver.controller.model.ReviewResponse;
+import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.service.ReviewService;
 import com.kenzie.appserver.service.model.Review;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,7 @@ public class ReviewController {
                     updatedReview.getCommunication(),
                     updatedReview.getAvailability());
             return ResponseEntity.accepted().body(reviewResponse);
-        } catch (ConditionalCheckFailedException e){
+        } catch (ReviewNotFoundException e){
             return ResponseEntity.notFound().build();
         }
     }
