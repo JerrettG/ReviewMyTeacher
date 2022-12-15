@@ -5,6 +5,7 @@ import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
+import com.kenzie.appserver.repositories.model.ReviewPrimaryKey;
 import com.kenzie.appserver.service.model.Review;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Assertions;
@@ -39,8 +40,10 @@ public class ReviewServiceTest {
         //GIVEN
         String teacherName = randomUUID().toString();
         ReviewEntity entity = new ReviewEntity(
-                mockNeat.names().first().val(),
-                mockNeat.strings().toString(),
+                new ReviewPrimaryKey(
+                        teacherName,
+                        mockNeat.localDates().valStr()
+                ),
                 mockNeat.doubles().val(),
                 mockNeat.strings().toString(),
                 mockNeat.strings().toString(),
@@ -84,8 +87,10 @@ public class ReviewServiceTest {
         //GIVEN
         String courseTitle = randomUUID().toString();
         ReviewEntity entity = new ReviewEntity(
-                mockNeat.names().first().val(),
-                mockNeat.strings().toString(),
+                new ReviewPrimaryKey(
+                        mockNeat.names().val(),
+                        mockNeat.localDates().valStr()
+                ),
                 mockNeat.doubles().val(),
                 mockNeat.strings().toString(),
                 mockNeat.strings().toString(),
