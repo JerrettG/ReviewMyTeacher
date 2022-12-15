@@ -42,6 +42,7 @@ const updateUI = async () => {
     if (!isAuthenticated) {
         loginLogout.innerHTML = "Login";
         loginLogout.onclick = login;
+        document.getElementById("reviews-user-made-button").style.display = 'none';
     }
 
     else if (isAuthenticated) {
@@ -49,7 +50,8 @@ const updateUI = async () => {
         loginLogout.innerHTML = "Logout";
         loginLogout.onclick = logout;
         //display username if user is logged in
-        document.getElementById('account-dropbutton').innerHTML = `${user.nickname} <i class="fa-solid fa-user"></i>`;
+        document.getElementById('logged-in-welcome').innerHTML = `${user.nickname}`;
+        document.getElementById("reviews-user-made-button").style.display = 'block';
     }
 
 };

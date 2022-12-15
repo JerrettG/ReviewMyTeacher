@@ -1,8 +1,7 @@
 package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
-
-import java.util.Objects;
+import org.springframework.data.annotation.Id;
 
 @DynamoDBTable(tableName = "Review")
 public class ReviewEntity {
@@ -10,9 +9,8 @@ public class ReviewEntity {
 
     public static final String COURSE_TITLE_INDEX = "CourseTitleIndex";
     public static final String USERNAME_INDEX = "UsernameIndex";
-
-    private String teacherName;
-    private String datePosted;
+    @Id
+    private ReviewPrimaryKey primaryKey;
     private double totalRating;
     private String courseTitle;
     private String username;
@@ -26,9 +24,8 @@ public class ReviewEntity {
 
     public ReviewEntity() {}
 
-    public ReviewEntity(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
-        this.teacherName = teacherName;
-        this.datePosted = datePosted;
+    public ReviewEntity(ReviewPrimaryKey primaryKey, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
+        this.primaryKey = primaryKey;
         this.totalRating = totalRating;
         this.courseTitle = courseTitle;
         this.username = username;
@@ -43,21 +40,25 @@ public class ReviewEntity {
 
     @DynamoDBHashKey(attributeName = "teacherName")
     public String getTeacherName() {
-        return teacherName;
+        return primaryKey != null ? primaryKey.getTeacherName() : null;
     }
 
     public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+        if (primaryKey == null)
+            primaryKey = new ReviewPrimaryKey();
+        primaryKey.setTeacherName(teacherName);
     }
 
     @DynamoDBIndexRangeKey(globalSecondaryIndexNames = {COURSE_TITLE_INDEX, USERNAME_INDEX})
     @DynamoDBRangeKey(attributeName = "datePosted")
     public String getDatePosted() {
-        return datePosted;
+        return primaryKey != null ? primaryKey.getDatePosted() : null;
     }
 
     public void setDatePosted(String datePosted) {
-        this.datePosted = datePosted;
+        if (primaryKey == null)
+            primaryKey = new ReviewPrimaryKey();
+        primaryKey.setTeacherName(datePosted);
     }
 
     @DynamoDBAttribute(attributeName = "totalRating")
@@ -144,36 +145,36 @@ public class ReviewEntity {
         this.availability = availability;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ReviewEntity that = (ReviewEntity) o;
-        return Double.compare(that.totalRating, totalRating) == 0
-                && Double.compare(that.presentation, presentation) == 0
-                && Double.compare(that.outgoing, outgoing) == 0
-                && Double.compare(that.listening, listening) == 0
-                && Double.compare(that.communication, communication) == 0
-                && Double.compare(that.availability, availability) == 0
-                && Objects.equals(teacherName, that.teacherName)
-                && Objects.equals(datePosted, that.datePosted)
-                && Objects.equals(courseTitle, that.courseTitle)
-                && Objects.equals(username, that.username)
-                && Objects.equals(comment, that.comment);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(teacherName,
-                datePosted,
-                totalRating,
-                courseTitle,
-                username,
-                comment,
-                presentation,
-                outgoing,
-                listening,
-                communication,
-                availability);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        ReviewEntity that = (ReviewEntity) o;
+//        return Double.compare(that.totalRating, totalRating) == 0
+//                && Double.compare(that.presentation, presentation) == 0
+//                && Double.compare(that.outgoing, outgoing) == 0
+//                && Double.compare(that.listening, listening) == 0
+//                && Double.compare(that.communication, communication) == 0
+//                && Double.compare(that.availability, availability) == 0
+//                && Objects.equals(teacherName, that.teacherName)
+//                && Objects.equals(datePosted, that.datePosted)
+//                && Objects.equals(courseTitle, that.courseTitle)
+//                && Objects.equals(username, that.username)
+//                && Objects.equals(comment, that.comment);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(teacherName,
+//                datePosted,
+//                totalRating,
+//                courseTitle,
+//                username,
+//                comment,
+//                presentation,
+//                outgoing,
+//                listening,
+//                communication,
+//                availability);
+//    }
 }

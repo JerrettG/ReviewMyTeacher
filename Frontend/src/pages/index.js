@@ -16,16 +16,13 @@ class IndexPage extends BaseClass {
         this.dataStore = new DataStore();
     }
 
-    /**
-     * Once the page has loaded, set up the event handlers and fetch the concert list.
-     */
     async mount() {
         document.getElementById('search-by-teacher-form').addEventListener('submit', this.onGetByTeacherName);
         document.getElementById('search-by-course-form').addEventListener('submit', this.onGetByCourseTitle);
         document.getElementById('create-review-form').addEventListener('submit', this.onCreateReview);
         this.client = new ReviewClient();
 
-        this.dataStore.addChangeListener(this.renderExample)
+        this.dataStore.addChangeListener(this.renderReviews())
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -97,7 +94,20 @@ class IndexPage extends BaseClass {
             this.errorHandler("Error doing GET!  Try again...");
         }
     }
+    async onGetByUsername(event) {
+        event.preventDefault();
 
+        let username = document.getElementById("logged-in-welcome").value;
+        this.dataStore.set("reviews", null);
+
+        let result = await this.client.getReviewsByUsername(username, this.errorHandler);
+        this.dataStore.set("reviews", result);
+        if (result) {
+            this.showMessage(`Reviews for ${username} retrieved!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
     async onCreateReview(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
@@ -155,6 +165,7 @@ class IndexPage extends BaseClass {
             this.errorHandler("Error creating!  Try again...");
         }
     }
+
 }
 
 /**

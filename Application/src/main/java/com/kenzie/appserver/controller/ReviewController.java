@@ -7,6 +7,7 @@ import com.kenzie.appserver.controller.model.ReviewResponse;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.service.ReviewService;
 import com.kenzie.appserver.service.model.Review;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,7 @@ public class ReviewController {
                     createdReview.getListening(),
                     createdReview.getCommunication(),
                     createdReview.getAvailability());
-            return ResponseEntity.accepted().body(reviewResponse);
-
+            return new ResponseEntity<>(reviewResponse, HttpStatus.CREATED);
     }
 
     @PutMapping("/teacher/{teacherName}")
@@ -54,6 +54,7 @@ public class ReviewController {
         try {
             Review review = new Review();
             review.setTeacherName(reviewUpdateRequest.getTeacherName());
+            review.setDatePosted(reviewUpdateRequest.getDatePosted());
             review.setComment(reviewUpdateRequest.getComment());
             review.setPresentation(reviewUpdateRequest.getPresentation());
             review.setOutgoing(reviewUpdateRequest.getOutgoing());

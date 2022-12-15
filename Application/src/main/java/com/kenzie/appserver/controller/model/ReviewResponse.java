@@ -27,10 +27,11 @@ public class ReviewResponse {
     private double listening;
     @JsonProperty("communication")
     private double communication;
-    @JsonProperty("avaiability")
-    private double avaiability;
+    @JsonProperty("availability")
+    private double availability;
 
-    public ReviewResponse(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double avaiability) {
+    public ReviewResponse() {}
+    public ReviewResponse(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.teacherName = teacherName;
         this.datePosted = datePosted;
         this.totalRating = totalRating;
@@ -42,7 +43,7 @@ public class ReviewResponse {
         this.subjectKnowledge = subjectKnowledge;
         this.listening = listening;
         this.communication = communication;
-        this.avaiability = avaiability;
+        this.availability = availability;
     }
 
     public String getTeacherName() {
@@ -134,10 +135,10 @@ public class ReviewResponse {
     }
 
     public double getAvaiability() {
-        return avaiability;
+        return availability;
     }
 
-    public void setAvaiability(double avaiability) {
-        this.avaiability = avaiability;
+    public void setAvaiability(double availability) {
+        this.availability = availability;
     }
 }

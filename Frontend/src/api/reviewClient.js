@@ -18,20 +18,19 @@ export default class ReviewClient extends BaseClass {
 
     /**
      * Run any functions that are supposed to be called once the client has loaded successfully.
-     * @param client The client that has been successfully loaded.
      */
-    clientLoaded(client) {
-        this.client = client;
+    clientLoaded() {
+
         if (this.props.hasOwnProperty("onReady")){
             this.props.onReady();
         }
     }
 
     /**
-     * Gets the concert for the given ID.
-     * @param teacherName
+     * Makes a request to the backend to get the reviews given teacher name.
+     * @param teacherName name of teacher reviews will be retrieved for.
      * @param errorCallback (Optional) A function to execute if the call fails.
-     * @returns The concert
+     * @returns the list of reviews retrieved
      */
     async getReviewsByTeacherName(teacherName, errorCallback) {
         try {
@@ -42,6 +41,12 @@ export default class ReviewClient extends BaseClass {
         }
     }
 
+    /**
+     * Makes a request to the backend to get the reviews for the given course title.
+     * @param courseTitle title of course reviews will be retrieved for.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns the list of reviews retrieved
+     */
     async getReviewsByCourseTitle(courseTitle, errorCallback) {
         try {
             const response = await fetch(`/api/v1/reviewMyTeacher/course/${courseTitle}`);
@@ -50,8 +55,31 @@ export default class ReviewClient extends BaseClass {
             this.handleError("getReviewsByCourse", error, errorCallback)
         }
     }
+    async getReviewsByUsername(courseTitle, errorCallback) {
+        try {
+            const response = await fetch(`/api/v1/reviewMyTeacher/user/{username}`);
+            return response.data;
+        } catch (error) {
+            this.handleError("getReviewsByCourse", error, errorCallback)
+        }
+    }
 
-    async createReview(teacherName, courseTitle, username, comment, presentation,
+    /**
+     * Makes a request to the backend to create a review.
+     * @param teacherName name of the teacher the review is for.
+     * @param courseTitle title of the course the user had the teacher.
+     * @param username username of the user posting comment.
+     * @param comment an optional field for the user to leave a comment on their review. Defaults to empty string
+     * @param presentation (number) rating the user gave on the teacher's presentation skills.
+     * @param availability (number) rating the user gave on the teacher's availability.
+     * @param outgoing (number) rating the user gave on how outgoing the teacher was.
+     * @param listening (number) rating the user gave on the teacher's listening skills.
+     * @param communication (number) rating the user gave on the teacher's communication skills.
+     * @param subjectKnowledge (number) rating the user gave on the teacher's subject knowledge of the course
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns the full created review
+     */
+    async createReview(teacherName, courseTitle, username, comment = "", presentation,
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
@@ -62,9 +90,9 @@ export default class ReviewClient extends BaseClass {
                 },
                 method: "POST",
                 body: {
-<<<<<<< HEAD
                     teacherName: teacherName,
                     courseTitle: courseTitle,
+                    username: username,
                     comment: comment,
                     presentation: presentation,
                     availability: availability,
@@ -72,17 +100,6 @@ export default class ReviewClient extends BaseClass {
                     listening: listening,
                     communication: communication,
                     subjectKnowledge: subjectKnowledge
-=======
-                teacherName: teacherName,
-                courseTitle: courseTitle,
-                comment: comment,
-                presentation: presentation,
-                availability: availability,
-                outgoing: outgoing,
-                listening: listening,
-                communication: communication,
-                subjectKnowledge: subjectKnowledge
->>>>>>> b00b3c0 (Added username retrieval from auth0 and finished up reviewClient.js)
                 }
             });
             return response.data;
@@ -90,6 +107,21 @@ export default class ReviewClient extends BaseClass {
             this.handleError("createReview", error, errorCallback);
         }
     }
+
+    /**
+     * Makes a request to the backend to update an existing review. Any unchanged fields will remain the same.
+     * @param teacherName name of the teacher the review is for.
+     * @param datePosted the timestamp the review was created at.
+     * @param comment the updated comment for the review.
+     * @param presentation the updated (number) rating for presentation skills of the teacher on the review.
+     * @param availability the updated (number) rating for availability of the teacher on the review.
+     * @param outgoing the updated (number) rating for how outgoing the teacher is on the review.
+     * @param listening the updated (number) rating for listening skills of the teacher on the review.
+     * @param communication the updated (number) rating for communication skills of the teacher on the review.
+     * @param subjectKnowledge the updated (number) rating for teacher's subject knowledge of course on the review.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns the full updated review
+     */
     async updateReview(teacherName,datePosted, comment, presentation,
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
@@ -117,7 +149,15 @@ export default class ReviewClient extends BaseClass {
             this.handleError("updateReview", error, errorCallback);
         }
     }
-    async deleteReview(teacherName, datePosted) {
+
+    /**
+     * Makes a request to the backend to delete an existing review.
+     * @param teacherName name of the teacher the review is for.
+     * @param datePosted the timestamp the review was created at.
+     * @param errorCallback (Optional) A function to execute if the call fails.
+     * @returns response with status code 202 if successful, 404 not found if not.
+     */
+    async deleteReview(teacherName, datePosted, errorCallback) {
         try {
             const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`,  {
                 headers: {
