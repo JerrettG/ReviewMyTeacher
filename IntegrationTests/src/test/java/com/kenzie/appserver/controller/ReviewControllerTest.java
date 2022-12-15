@@ -39,7 +39,18 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
         queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                .andExpect(status().isOk());
+                .andExpectAll(
+                        status().isCreated(),
+                        jsonPath("teacherName").value(reviewCreateRequest.getTeacherName()),
+                        jsonPath("courseTitle").value(reviewCreateRequest.getCourseTitle()),
+                        jsonPath("comment").value(reviewCreateRequest.getComment()),
+                        jsonPath("availability").value(reviewCreateRequest.getAvailability()),
+                        jsonPath("outgoing").value(reviewCreateRequest.getOutgoing()),
+                        jsonPath("subjectKnowledge").value(reviewCreateRequest.getSubjectKnowledge()),
+                        jsonPath("communication").value(reviewCreateRequest.getCommunication()),
+                        jsonPath("presentation").value(reviewCreateRequest.getPresentation()),
+                        jsonPath("listening").value(reviewCreateRequest.getListening())
+                );
 
     }
 
@@ -53,7 +64,7 @@ public class ReviewControllerTest {
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
                 .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
-        queryUtility.reviewControllerClient.getAllReviewsForCourse(reviewCreateRequest.getCourseTitle())
+        queryUtility.reviewControllerClient.getAllReviewsForTeacher(reviewCreateRequest.getTeacherName())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].teacherName").value(reviewResponse.getCourseTitle()))
                 .andExpect(jsonPath("$[0].datePosted").value(reviewResponse.getDatePosted()));
@@ -84,7 +95,7 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                        .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                        .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
         ReviewUpdateRequest reviewUpdateRequest = new ReviewUpdateRequest(
                 reviewResponse.getTeacherName(),
@@ -98,7 +109,8 @@ public class ReviewControllerTest {
                 reviewResponse.getAvaiability());
 
                queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
-                       .andExpect(status().isAccepted()).andExpect(jsonPath("teacherName").value(reviewResponse.getTeacherName()))
+                       .andExpect(status().isAccepted())
+                       .andExpect(jsonPath("teacherName").value(reviewResponse.getTeacherName()))
                        .andExpect(jsonPath("datePosted").value(reviewResponse.getDatePosted()))
                        .andExpect(jsonPath("comment").value(reviewUpdateRequest.getComment()));
     }
@@ -121,11 +133,11 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
         ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(reviewResponse.getTeacherName(), reviewResponse.getDatePosted());
         queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
-                .andExpect(status().isOk());
+                .andExpect(status().isAccepted());
     }
 
     @Test

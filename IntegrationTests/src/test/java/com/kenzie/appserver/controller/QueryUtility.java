@@ -25,6 +25,7 @@ public class QueryUtility {
 
     public QueryUtility(MockMvc mvc) {
         this.mvc = mvc;
+        this.reviewControllerClient = new ReviewControllerClient();
     }
 
     public class ReviewControllerClient {
@@ -39,7 +40,7 @@ public class QueryUtility {
         }
 
         public ResultActions createReview(ReviewCreateRequest createRequest) throws Exception {
-            return mvc.perform(post("/api/v1/reviewMyTeacher/teacher")
+            return mvc.perform(post("/api/v1/reviewMyTeacher/teacher/{teacherName}", createRequest.getTeacherName())
                     .accept(MediaType.APPLICATION_JSON)
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(mapper.writeValueAsString(createRequest)));

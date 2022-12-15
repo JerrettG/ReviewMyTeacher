@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
+import com.kenzie.appserver.repositories.model.ReviewPrimaryKey;
 import com.kenzie.appserver.service.model.Review;
 import org.springframework.stereotype.Service;
 
@@ -50,7 +51,6 @@ public class ReviewService {
             throw new ReviewNotFoundException();
         }
         return review;
-
     }
 
     public void deleteReview(Review review) {
@@ -61,8 +61,10 @@ public class ReviewService {
 
     private ReviewEntity convertToEntity(Review review) {
         return new ReviewEntity(
-                review.getTeacherName(),
-                review.getDatePosted(),
+                new ReviewPrimaryKey(
+                        review.getTeacherName(),
+                        review.getDatePosted()
+                ),
                 review.getTotalRating(),
                 review.getCourseTitle(),
                 review.getUsername(),
