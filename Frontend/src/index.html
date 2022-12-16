@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="module" src="/pages/index.js"></script>
+    <script defer type="text/javascript" src="index.js"></script>
+    <script defer type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
@@ -14,21 +15,25 @@
                 <div class="navbar-logo-container">
                     <p class="logo">ReviewMyTeacher</p>
                 </div>
-                <div class="account-dropdown">
-                    <div class="account-dropbutton-container">
-                        <button class="account-dropbutton" id="account-dropbutton">
-                            <span id="logged-in-welcome"></span>
-                            <i class="fa-solid fa-user"></i>
-                        </button>
-                    </div>
-                    <div class="account-dropdown-content">
-                        <a id="login-logout" class="dropdown-links" onclick="login()">Login</a>
+                <div class="nav-links">
+                    <a class="nav-link" href="/">Home<span class="highlight-link"></span></a>
+                    <div class="account-dropdown">
+                        <div class="account-dropbutton-container">
+                            <button class="account-dropbutton" id="account-dropbutton">
+                                <span id="logged-in-welcome"> </span>
+                                <i class="fa-solid fa-user"></i>
+                            </button>
+                        </div>
+                        <div class="account-dropdown-content">
+                            <a class="dropdown-links" id="account-link">Account</a>
+                            <a id="login-logout" class="dropdown-links" onclick="login()">Login</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-    <section class="search-submission-forms">
+    <section id="search-submission-forms">
         <form id="search-by-course-form">
             <select class="course-selection" id="selected-course">
                 <option>CS-101</option>
@@ -205,6 +210,7 @@
             </div>
             <p id="comment-label">Leave a comment:</p>
             <textarea form="create-review-form" name="comment" class="comment-text-box"></textarea>
+            <button>Submit</button>
         </form>
     </section>
     <section>
@@ -212,35 +218,35 @@
             <button id="sort-button">Sort by</button>
             <button id="reviews-user-made-button">Find reviews you've made</button>
         </div>
-        <div class="result-info">
-            <div class="review-container">
-                <div class="review-info">
-                    <div class="review-info-top-container">
-                        <div class="course-teacher-total-container">
-                            <div class="total-rating-container"><span class="total-rating">4.0</span></div>
-                            <span class="course-title">Course title: COMPSCI-101</span>
-                            <span class="teacher-name">Teacher name: Professor Teacher</span>
-                        </div>
-                        <div class="update-delete-buttons">
-                            <span class="edit-review">Edit</span>
-                            <span class="delete-review">Delete</span>
-                        </div>
-                    </div>
-                    <div class="review-info-mid-container">
-                        <span class="review-info-rating">Presentation: 3.0</span>
-                        <span class="review-info-rating">Outgoing: 3.0</span>
-                        <span class="review-info-rating">Subject knowledge: 3.0</span>
-                        <span class="review-info-rating">Listening: 3.0</span>
-                        <span class="review-info-rating">Communication: 3.0</span>
-                        <span class="review-info-rating">Availability: 3.0</span>
-                    </div>
-                    <div class="comment-display"><span>Lorem Ipsum adlfk;jasldfjkalsdfjlaksjflksadjf</span></div>
-                </div>
-            </div>
+        <div class="result-info" id="result-area">
         </div>
     </section>
-
-    <script src="/js/app.js"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 </body>
 </html>
+<!-- TODO make it so when 'Account' link is clicked, the reviews for the user are loaded with review cards that look
+        like the below that will prompt user for an edit form when edit is clicked or confirmation of deletion -->
+<!--<div class="review-container">-->
+<!--    <div class="review-info">-->
+<!--        <div class="review-info-top-container">-->
+<!--            <div class="course-teacher-total-container">-->
+<!--                <div class="total-rating-container"><span class="total-rating">4.0</span></div>-->
+<!--                <span class="course-title">Course title: COMPSCI-101</span>-->
+<!--                <span class="teacher-name">Teacher name: Professor Teacher</span>-->
+<!--            </div>-->
+<!--            <div class="update-delete-buttons">-->
+<!--                <span class="edit-review">Edit</span>-->
+<!--                <span class="delete-review">Delete</span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="review-info-mid-container">-->
+<!--            <span class="review-info-rating">Presentation: 3.0</span>-->
+<!--            <span class="review-info-rating">Outgoing: 3.0</span>-->
+<!--            <span class="review-info-rating">Subject knowledge: 3.0</span>-->
+<!--            <span class="review-info-rating">Listening: 3.0</span>-->
+<!--            <span class="review-info-rating">Communication: 3.0</span>-->
+<!--            <span class="review-info-rating">Availability: 3.0</span>-->
+<!--        </div>-->
+<!--        <div class="comment-display"><span>Lorem Ipsum adlfk;jasldfjkalsdfjlaksjflksadjf</span></div>-->
+<!--    </div>-->
+<!--</div>-->

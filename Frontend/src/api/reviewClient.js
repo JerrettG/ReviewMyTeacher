@@ -1,4 +1,5 @@
-import BaseClass from "../util/baseClass.js";
+import BaseClass from "../util/baseClass";
+import axios from "axios";
 /**
  * Client to call the ReviewMyTeacherService.
  *
@@ -14,13 +15,14 @@ export default class ReviewClient extends BaseClass {
         const methodsToBind = ['clientLoaded', 'getReviewsByTeacherName','getReviewsByCourseTitle', 'createReview', 'updateReview', 'deleteReview'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
+        this.clientLoaded(axios);
     }
 
     /**
      * Run any functions that are supposed to be called once the client has loaded successfully.
      */
-    clientLoaded() {
-
+    clientLoaded(client) {
+        this.client = client;
         if (this.props.hasOwnProperty("onReady")){
             this.props.onReady();
         }
@@ -34,7 +36,7 @@ export default class ReviewClient extends BaseClass {
      */
     async getReviewsByTeacherName(teacherName, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`);
+            const response = await this.client.get(`/api/v1/reviewMyTeacher/teacher/${teacherName}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByTeacher", error, errorCallback)
@@ -49,7 +51,7 @@ export default class ReviewClient extends BaseClass {
      */
     async getReviewsByCourseTitle(courseTitle, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/course/${courseTitle}`);
+            const response = await this.client.get(`/api/v1/reviewMyTeacher/course/${courseTitle}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByCourse", error, errorCallback)
@@ -57,7 +59,7 @@ export default class ReviewClient extends BaseClass {
     }
     async getReviewsByUsername(courseTitle, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/user/{username}`);
+            const response = await this.client.get(`/api/v1/reviewMyTeacher/user/{username}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByCourse", error, errorCallback)
@@ -83,25 +85,19 @@ export default class ReviewClient extends BaseClass {
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: {
-                    teacherName: teacherName,
-                    courseTitle: courseTitle,
-                    username: username,
-                    comment: comment,
-                    presentation: presentation,
-                    availability: availability,
-                    outgoing: outgoing,
-                    listening: listening,
-                    communication: communication,
-                    subjectKnowledge: subjectKnowledge
-                }
-            });
+            const response =
+                await this.client.post(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
+                        teacherName: teacherName,
+                        courseTitle: courseTitle,
+                        username: username,
+                        comment: comment,
+                        presentation: presentation,
+                        availability: availability,
+                        outgoing: outgoing,
+                        listening: listening,
+                        communication: communication,
+                        subjectKnowledge: subjectKnowledge
+                });
             return response.data;
         } catch (error) {
             this.handleError("createReview", error, errorCallback);
@@ -126,13 +122,7 @@ export default class ReviewClient extends BaseClass {
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`,  {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "PUT",
-                body: {
+            const response = await this.client.put(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
                     teacherName: teacherName,
                     datePosted: datePosted,
                     comment: comment,
@@ -143,7 +133,7 @@ export default class ReviewClient extends BaseClass {
                     communication: communication,
                     subjectKnowledge: subjectKnowledge
                 }
-            });
+            );
             return response.data;
         } catch (error) {
             this.handleError("updateReview", error, errorCallback);
@@ -159,17 +149,10 @@ export default class ReviewClient extends BaseClass {
      */
     async deleteReview(teacherName, datePosted, errorCallback) {
         try {
-            const response = await fetch(`/api/v1/reviewMyTeacher/teacher/${teacherName}`,  {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "DELETE",
-                body: {
+            const response = await this.client.delete(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
                     teacherName: teacherName,
                     datePosted: datePosted,
-                }
-            });
+                });
             return response.data;
         } catch (error) {
             this.handleError("deleteReview", error, errorCallback);

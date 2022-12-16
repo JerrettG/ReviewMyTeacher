@@ -1,24 +1,17 @@
+import {createAuth0Client} from "@auth0/auth0-spa-js";
+
 let auth0Client = null;
 
-
-const fetchAuthConfig = async () => await fetch("/auth_config.json");
-
 const configureClient = async () => {
-    const response = await fetchAuthConfig();
-    const config = await response.json();
-
-    auth0Client = await auth0.createAuth0Client({
-        domain: config.domain,
-        clientId: config.clientId
+    auth0Client = await createAuth0Client({
+        domain: process.env.LBC_DOMAIN,
+        clientId: process.env.LBC_CLIENT_ID
     });
 };
 
 
-
 window.onload = async () => {
-
     await configureClient();
-
     await updateUI();
 
     // NEW - check for the code and state parameters
@@ -52,6 +45,7 @@ const updateUI = async () => {
         //display username if user is logged in
         document.getElementById('logged-in-welcome').innerHTML = `${user.nickname}`;
         document.getElementById("reviews-user-made-button").style.display = 'block';
+        document.getElementById("account-link").addEventListener("click", account);
     }
 
 };
@@ -72,3 +66,7 @@ const logout = () => {
         }
     });
 };
+
+const account = () => {
+    document.getElementById("search-submission-forms").remove();
+}
