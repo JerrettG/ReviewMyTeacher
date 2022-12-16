@@ -1,6 +1,6 @@
-import BaseClass from "../util/baseClass.js";
-import DataStore from "../util/DataStore.js";
-import ReviewClient from "../api/reviewClient.js";
+import BaseClass from "../util/baseClass";
+import DataStore from "../util/DataStore";
+import ReviewClient from "../api/reviewClient";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -28,11 +28,12 @@ class IndexPage extends BaseClass {
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async renderReviews() {
-        let resultArea = document.getElementById("result-info");
+        let resultArea = document.getElementById("result-area");
 
-        const reviews = this.dataStore.get("reviews");
+        const reviews = await this.dataStore.get("reviews");
+        console.log(reviews);
         let html = '';
-        if (reviews.length > 0) {
+        if (reviews && reviews.length > 0) {
             for (let review of reviews) {
                 html += `
                 <div class="review-container">
@@ -94,6 +95,7 @@ class IndexPage extends BaseClass {
             this.errorHandler("Error doing GET!  Try again...");
         }
     }
+
     async onGetByUsername(event) {
         event.preventDefault();
 
@@ -151,7 +153,7 @@ class IndexPage extends BaseClass {
             this.errorHandler("Error creating!  Try again...");
         }
     }
-    async onDeleteReview(event) {
+    async onDeleteReview(teacherName, datePosted, event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
