@@ -22,8 +22,6 @@ public class ReviewEntity {
     private double communication;
     private double availability;
 
-    public ReviewEntity() {}
-
     public ReviewEntity(ReviewPrimaryKey primaryKey, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.primaryKey = primaryKey;
         this.totalRating = totalRating;
@@ -144,37 +142,4 @@ public class ReviewEntity {
     public void setAvailability(double availability) {
         this.availability = availability;
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        ReviewEntity that = (ReviewEntity) o;
-//        return Double.compare(that.totalRating, totalRating) == 0
-//                && Double.compare(that.presentation, presentation) == 0
-//                && Double.compare(that.outgoing, outgoing) == 0
-//                && Double.compare(that.listening, listening) == 0
-//                && Double.compare(that.communication, communication) == 0
-//                && Double.compare(that.availability, availability) == 0
-//                && Objects.equals(teacherName, that.teacherName)
-//                && Objects.equals(datePosted, that.datePosted)
-//                && Objects.equals(courseTitle, that.courseTitle)
-//                && Objects.equals(username, that.username)
-//                && Objects.equals(comment, that.comment);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(teacherName,
-//                datePosted,
-//                totalRating,
-//                courseTitle,
-//                username,
-//                comment,
-//                presentation,
-//                outgoing,
-//                listening,
-//                communication,
-//                availability);
-//    }
 }

@@ -1,7 +1,6 @@
 package com.kenzie.appserver.service;
 
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
-import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
@@ -14,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static java.util.UUID.randomUUID;
 import static org.mockito.Mockito.*;
@@ -89,8 +87,7 @@ public class ReviewServiceTest {
         ReviewEntity entity = new ReviewEntity(
                 new ReviewPrimaryKey(
                         mockNeat.names().val(),
-                        mockNeat.localDates().valStr()
-                ),
+                        mockNeat.localDates().valStr()),
                 mockNeat.doubles().val(),
                 mockNeat.strings().toString(),
                 mockNeat.strings().toString(),
@@ -100,8 +97,7 @@ public class ReviewServiceTest {
                 mockNeat.doubles().val(),
                 mockNeat.doubles().val(),
                 mockNeat.doubles().val(),
-                mockNeat.doubles().val()
-        );
+                mockNeat.doubles().val());
         List<ReviewEntity> reviewEntities = new ArrayList<>();
         reviewEntities.add(entity);
         when(reviewRepository.findAllByCourseTitle(courseTitle)).thenReturn(reviewEntities);
@@ -121,7 +117,6 @@ public class ReviewServiceTest {
         Assertions.assertEquals(entity.getListening(), reviews.get(0).getListening());
         Assertions.assertEquals(entity.getCommunication(), reviews.get(0).getCommunication());
         Assertions.assertEquals(entity.getAvailability(), reviews.get(0).getAvailability());
-
     }
 
     /**
@@ -145,13 +140,10 @@ public class ReviewServiceTest {
         review.setPresentation(mockNeat.doubles().val());
         review.setSubjectKnowledge(mockNeat.doubles().val());
         review.setTotalRating(mockNeat.doubles().val());
-
         //WHEN
         reviewService.createReview(review);
-
         //THEN
-        verify(reviewRepository).findAllByTeacherName(review.getTeacherName());
-
+        verify(reviewRepository).save(any(ReviewEntity.class));
     }
 
     /**
@@ -163,18 +155,18 @@ public class ReviewServiceTest {
     public void updateReview() {
         //GIVEN
         Review review = new Review();
-        review.setTeacherName(randomUUID().toString());
-        review.setDatePosted(randomUUID().toString());
+        review.setTeacherName(mockNeat.names().toString());
+        review.setDatePosted(mockNeat.localDates().toString());
         review.setTotalRating(5);
-        review.setCourseTitle(randomUUID().toString());
-        review.setUsername(randomUUID().toString());
-        review.setComment(randomUUID().toString());
-        review.setPresentation(5);
-        review.setOutgoing(5);
-        review.setSubjectKnowledge(5);
-        review.setListening(5);
-        review.setCommunication(5);
-        review.setAvailability(5);
+        review.setCourseTitle(mockNeat.strings().toString());
+        review.setUsername(mockNeat.strings().toString());
+        review.setComment(mockNeat.strings().toString());
+        review.setPresentation(mockNeat.doubles().val());
+        review.setOutgoing(mockNeat.doubles().val());
+        review.setSubjectKnowledge(mockNeat.doubles().val());
+        review.setListening(mockNeat.doubles().val());
+        review.setCommunication(mockNeat.doubles().val());
+        review.setAvailability(mockNeat.doubles().val());
 
         //WHEN
         Review updatedReview = reviewService.updateReview(review);
@@ -182,28 +174,28 @@ public class ReviewServiceTest {
         Assertions.assertNotNull(updatedReview);
         Assertions.assertNotNull(updatedReview.getDatePosted());
         Assertions.assertEquals(5, updatedReview.getTotalRating());
+
+        verify(reviewRepository).save(any(ReviewEntity.class));
     }
     @Test
     public void updateReview_reviewDoesNotExist_throwsReviewNotFoundException(){
         Review review = new Review();
-        review.setTeacherName(randomUUID().toString());
-        review.setDatePosted(randomUUID().toString());
-        review.setTotalRating(5);
-        review.setCourseTitle(randomUUID().toString());
-        review.setUsername(randomUUID().toString());
-        review.setComment(randomUUID().toString());
-        review.setPresentation(5);
-        review.setOutgoing(5);
-        review.setSubjectKnowledge(5);
-        review.setListening(5);
-        review.setCommunication(5);
-        review.setAvailability(5);
+        review.setTeacherName(mockNeat.names().toString());
+        review.setDatePosted(mockNeat.localDates().toString());
+        review.setTotalRating(mockNeat.doubles().val());
+        review.setCourseTitle(mockNeat.strings().toString());
+        review.setUsername(mockNeat.strings().toString());
+        review.setComment(mockNeat.strings().toString());
+        review.setPresentation(mockNeat.doubles().val());
+        review.setOutgoing(mockNeat.doubles().val());
+        review.setSubjectKnowledge(mockNeat.doubles().val());
+        review.setListening(mockNeat.doubles().val());
+        review.setCommunication(mockNeat.doubles().val());
+        review.setAvailability(mockNeat.doubles().val());
         when(reviewRepository.save(any(ReviewEntity.class))).thenThrow(ConditionalCheckFailedException.class);
         //WHEN
-
         //THEN
         Assertions.assertThrows(ReviewNotFoundException.class, () -> reviewService.updateReview(review));
-
     }
 
     /**
@@ -215,22 +207,21 @@ public class ReviewServiceTest {
     public void deleteReview() {
         //GIVEN
         Review review = new Review();
-        review.setTeacherName(randomUUID().toString());
-        review.setDatePosted(randomUUID().toString());
-        review.setTotalRating(5);
-        review.setCourseTitle(randomUUID().toString());
-        review.setUsername(randomUUID().toString());
-        review.setComment(randomUUID().toString());
-        review.setPresentation(5);
-        review.setOutgoing(5);
-        review.setSubjectKnowledge(5);
-        review.setListening(5);
-        review.setCommunication(5);
-        review.setAvailability(5);
+        review.setTeacherName(mockNeat.names().toString());
+        review.setDatePosted(mockNeat.localDates().toString());
+        review.setTotalRating(mockNeat.doubles().val());
+        review.setCourseTitle(mockNeat.strings().toString());
+        review.setUsername(mockNeat.strings().toString());
+        review.setComment(mockNeat.strings().toString());
+        review.setPresentation(mockNeat.doubles().val());
+        review.setOutgoing(mockNeat.doubles().val());
+        review.setSubjectKnowledge(mockNeat.doubles().val());
+        review.setListening(mockNeat.doubles().val());
+        review.setCommunication(mockNeat.doubles().val());
+        review.setAvailability(mockNeat.doubles().val());
         //WHEN
         reviewService.deleteReview(review);
         //THEN
-        Assertions.assertTrue(true);
-
+        verify(reviewRepository).delete(any(ReviewEntity.class));
     }
 }
