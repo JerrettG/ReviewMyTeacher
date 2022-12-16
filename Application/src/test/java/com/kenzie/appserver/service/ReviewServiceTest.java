@@ -25,7 +25,6 @@ public class ReviewServiceTest {
     @BeforeEach
     public void setup() {
         reviewRepository = mock(ReviewRepository.class);
-//        reviewService = mock(ReviewService.class);
         reviewService = new ReviewService(reviewRepository);
     }
 
@@ -88,8 +87,7 @@ public class ReviewServiceTest {
         ReviewEntity entity = new ReviewEntity(
                 new ReviewPrimaryKey(
                         mockNeat.names().val(),
-                        mockNeat.localDates().valStr()
-                ),
+                        mockNeat.localDates().valStr()),
                 mockNeat.doubles().val(),
                 mockNeat.strings().toString(),
                 mockNeat.strings().toString(),
@@ -99,8 +97,7 @@ public class ReviewServiceTest {
                 mockNeat.doubles().val(),
                 mockNeat.doubles().val(),
                 mockNeat.doubles().val(),
-                mockNeat.doubles().val()
-        );
+                mockNeat.doubles().val());
         List<ReviewEntity> reviewEntities = new ArrayList<>();
         reviewEntities.add(entity);
         when(reviewRepository.findAllByCourseTitle(courseTitle)).thenReturn(reviewEntities);
@@ -120,7 +117,6 @@ public class ReviewServiceTest {
         Assertions.assertEquals(entity.getListening(), reviews.get(0).getListening());
         Assertions.assertEquals(entity.getCommunication(), reviews.get(0).getCommunication());
         Assertions.assertEquals(entity.getAvailability(), reviews.get(0).getAvailability());
-
     }
 
     /**
@@ -131,7 +127,6 @@ public class ReviewServiceTest {
     @Test
     public void createReview() {
         //GIVEN
-        ReviewService reviewService = mock(ReviewService.class);
         Review review = new Review();
         review.setTeacherName(mockNeat.names().toString());
         review.setCourseTitle(mockNeat.strings().toString());
@@ -145,13 +140,10 @@ public class ReviewServiceTest {
         review.setPresentation(mockNeat.doubles().val());
         review.setSubjectKnowledge(mockNeat.doubles().val());
         review.setTotalRating(mockNeat.doubles().val());
-
         //WHEN
         reviewService.createReview(review);
-
         //THEN
-        verify(reviewService).createReview(review);
-
+        verify(reviewRepository).save(any(ReviewEntity.class));
     }
 
     /**
@@ -182,6 +174,8 @@ public class ReviewServiceTest {
         Assertions.assertNotNull(updatedReview);
         Assertions.assertNotNull(updatedReview.getDatePosted());
         Assertions.assertEquals(5, updatedReview.getTotalRating());
+
+        verify(reviewRepository).save(any(ReviewEntity.class));
     }
     @Test
     public void updateReview_reviewDoesNotExist_throwsReviewNotFoundException(){
@@ -200,10 +194,8 @@ public class ReviewServiceTest {
         review.setAvailability(mockNeat.doubles().val());
         when(reviewRepository.save(any(ReviewEntity.class))).thenThrow(ConditionalCheckFailedException.class);
         //WHEN
-
         //THEN
         Assertions.assertThrows(ReviewNotFoundException.class, () -> reviewService.updateReview(review));
-
     }
 
     /**
@@ -214,7 +206,6 @@ public class ReviewServiceTest {
     @Test
     public void deleteReview() {
         //GIVEN
-        ReviewService reviewService = mock(ReviewService.class);
         Review review = new Review();
         review.setTeacherName(mockNeat.names().toString());
         review.setDatePosted(mockNeat.localDates().toString());
@@ -231,7 +222,6 @@ public class ReviewServiceTest {
         //WHEN
         reviewService.deleteReview(review);
         //THEN
-        verify(reviewService).deleteReview(review);
-
+        verify(reviewRepository).delete(any(ReviewEntity.class));
     }
 }
