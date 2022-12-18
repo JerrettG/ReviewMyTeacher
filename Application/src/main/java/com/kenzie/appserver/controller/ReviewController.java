@@ -5,11 +5,15 @@ import com.kenzie.appserver.controller.model.ReviewCreateRequest;
 import com.kenzie.appserver.controller.model.ReviewUpdateRequest;
 import com.kenzie.appserver.controller.model.ReviewResponse;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
+import com.kenzie.appserver.repositories.model.ReviewEntity;
 import com.kenzie.appserver.service.ReviewService;
 import com.kenzie.appserver.service.model.Review;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/reviewMyTeacher")
@@ -27,6 +31,16 @@ public class ReviewController {
      * /teacher/{teacherName}
      * returns ResponseEntity<List<ReviewResponse>>
      */
+    @GetMapping("/teacher/{teacherName}")
+    public ResponseEntity<List<ReviewResponse>> getAllReviewsForTeacher(@PathVariable String teacherName) {
+        List<Review> reviewList = reviewService.getAllByTeacherName(teacherName);
+        // Convert the List of review objects into a List of ReviewResponses and return it
+        List<ReviewResponse> response = new ArrayList<>();
+        for (Review review : reviewList) {
+            response.add(convertToResponse(review));
+        }
+        return ResponseEntity.ok(response);
+    }
 
     /**
      * TODO by jonathan
@@ -35,6 +49,17 @@ public class ReviewController {
      * /course/{courseTitle}
      * returns ResponseEntity<List<ReviewResponse>>
      */
+
+    @GetMapping("/course/{courseTitle}")
+    public ResponseEntity<List<ReviewResponse>> getAllReviewsForCourse(@PathVariable String courseTitle) {
+        List<Review> reviewList = reviewService.getAllByCourseTitle(courseTitle);
+        // Convert the List of review objects into a List of ReviewResponses and return it
+        List<ReviewResponse> response = new ArrayList<>();
+        for (Review review : reviewList) {
+            response.add(this.convertToResponse(review));
+        }
+        return ResponseEntity.ok(response);
+    }
 
     /**
      * TODO by jerrett
