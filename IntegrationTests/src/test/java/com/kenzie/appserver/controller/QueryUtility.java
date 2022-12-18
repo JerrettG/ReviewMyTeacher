@@ -39,6 +39,11 @@ public class QueryUtility {
                     .accept(MediaType.APPLICATION_JSON));
         }
 
+        public ResultActions getAllReviewsByUsername(String username) throws Exception {
+            return mvc.perform(get("/api/v1/reviewMyTeacher/user/{username}", username)
+                    .accept(MediaType.APPLICATION_JSON));
+        }
+
         public ResultActions createReview(ReviewCreateRequest createRequest) throws Exception {
             return mvc.perform(post("/api/v1/reviewMyTeacher/teacher/{teacherName}", createRequest.getTeacherName())
                     .accept(MediaType.APPLICATION_JSON)

@@ -1,9 +1,9 @@
 package com.kenzie.appserver.repositories.model;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBDocument;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-
 public class ReviewPrimaryKey {
 
     private String teacherName;
@@ -21,6 +21,6 @@ public class ReviewPrimaryKey {
     @DynamoDBRangeKey(attributeName = "datePosted")
     @DynamoDBIndexRangeKey(globalSecondaryIndexNames = {ReviewEntity.COURSE_TITLE_INDEX, ReviewEntity.USERNAME_INDEX})
     public String getDatePosted() {return datePosted;}
-    public  void setDatePosted(String datePosted) {this.datePosted = datePosted;}
+    public void setDatePosted(String datePosted) {this.datePosted = datePosted;}
 
 }

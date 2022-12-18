@@ -66,11 +66,28 @@ public class ReviewControllerTest {
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
         queryUtility.reviewControllerClient.getAllReviewsForTeacher(reviewCreateRequest.getTeacherName())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].teacherName").value(reviewResponse.getCourseTitle()))
+                .andExpect(jsonPath("$[0].teacherName").value(reviewResponse.getTeacherName()))
                 .andExpect(jsonPath("$[0].datePosted").value(reviewResponse.getDatePosted()));
 
     }
 
+    @Test
+    public void retrieveReviewsByUser_reviewExists_reviewIsRetrieved() throws Exception {
+        ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
+                mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.users().valStr(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
+                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
+
+        String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+        ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
+        queryUtility.reviewControllerClient.getAllReviewsByUsername(reviewResponse.getUsername())
+                .andExpectAll(
+                        status().isOk(),
+                        jsonPath("$[0].teacherName").value(reviewResponse.getTeacherName()),
+                        jsonPath("$[0].datePosted").value(reviewResponse.getDatePosted())
+                );
+    }
     @Test
     public void retrieveReviewsForCourse_reviewsExist_reviewsAreRetrieved() throws Exception{
         ReviewCreateRequest reviewCreateRequest = new ReviewCreateRequest(mockNeat.strings().val(),
@@ -106,7 +123,7 @@ public class ReviewControllerTest {
                 reviewResponse.getSubjectKnowledge(),
                 reviewResponse.getListening(),
                 reviewResponse.getCommunication(),
-                reviewResponse.getAvaiability());
+                reviewResponse.getAvailability());
 
                queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
                        .andExpect(status().isAccepted())
@@ -145,7 +162,7 @@ public class ReviewControllerTest {
         ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(mockNeat.strings().val(),
                 mockNeat.strings().val());
         queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
     }
 
 }

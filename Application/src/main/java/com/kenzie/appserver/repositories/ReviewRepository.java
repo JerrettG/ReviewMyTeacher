@@ -14,5 +14,4 @@ public interface ReviewRepository extends CrudRepository<ReviewEntity, ReviewPri
     List<ReviewEntity> findAllByCourseTitle(String courseTitle);
     List<ReviewEntity> findAllByUsername(String username);
 
-
 }

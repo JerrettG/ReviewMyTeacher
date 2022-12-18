@@ -2,12 +2,14 @@ package com.kenzie.appserver.controller;
 
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
 import com.kenzie.appserver.controller.model.ReviewCreateRequest;
+import com.kenzie.appserver.controller.model.ReviewDeleteRequest;
 import com.kenzie.appserver.controller.model.ReviewUpdateRequest;
 import com.kenzie.appserver.controller.model.ReviewResponse;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
 import com.kenzie.appserver.service.ReviewService;
 import com.kenzie.appserver.service.model.Review;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,18 +21,11 @@ import java.util.List;
 @RequestMapping("/api/v1/reviewMyTeacher")
 public class ReviewController {
     private final ReviewService reviewService;
-
+    @Autowired
     public ReviewController(ReviewService reviewService){
         this.reviewService = reviewService;
     }
 
-    /**
-     * TODO by jonathan
-     *
-     * GET - getAllReviewsForTeacher(String teacherName)
-     * /teacher/{teacherName}
-     * returns ResponseEntity<List<ReviewResponse>>
-     */
     @GetMapping("/teacher/{teacherName}")
     public ResponseEntity<List<ReviewResponse>> getAllReviewsForTeacher(@PathVariable String teacherName) {
         List<Review> reviewList = reviewService.getAllByTeacherName(teacherName);
@@ -41,14 +36,6 @@ public class ReviewController {
         }
         return ResponseEntity.ok(response);
     }
-
-    /**
-     * TODO by jonathan
-     *
-     * GET - getAllReviewsForCourseTitle(String courseTitle)
-     * /course/{courseTitle}
-     * returns ResponseEntity<List<ReviewResponse>>
-     */
 
     @GetMapping("/course/{courseTitle}")
     public ResponseEntity<List<ReviewResponse>> getAllReviewsForCourse(@PathVariable String courseTitle) {
@@ -61,19 +48,20 @@ public class ReviewController {
         return ResponseEntity.ok(response);
     }
 
-    /**
-     * TODO by jerrett
-     *
-     * GET - getAllReviewsByUsername(String username)
-     * /user/{username}
-     * returns ResponseEntity<List<ReviewResponse>>
-     */
+    @GetMapping("/user/{username}")
+    public ResponseEntity<List<ReviewResponse>> getAllReviewsByUser(@PathVariable String username) {
+        List<Review> reviews = reviewService.getAllByUsername(username);
+        List<ReviewResponse> response = new ArrayList<>();
+        reviews.forEach(review -> response.add(convertToResponse(review)));
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/teacher/{teacherName}")
     public ResponseEntity<ReviewResponse> createReview(@PathVariable String teacherName, @RequestBody ReviewCreateRequest reviewCreateRequest) {
             Review review = new Review();
             review.setTeacherName(reviewCreateRequest.getTeacherName());
             review.setComment(reviewCreateRequest.getComment());
+            review.setUsername(reviewCreateRequest.getUsername());
             review.setCourseTitle(reviewCreateRequest.getCourseTitle());
             review.setPresentation(reviewCreateRequest.getPresentation());
             review.setOutgoing(reviewCreateRequest.getOutgoing());
@@ -82,19 +70,7 @@ public class ReviewController {
             review.setCommunication(reviewCreateRequest.getCommunication());
             review.setAvailability(reviewCreateRequest.getAvailability());
             Review createdReview = reviewService.createReview(review);
-            ReviewResponse reviewResponse = new ReviewResponse(
-                    createdReview.getTeacherName(),
-                    createdReview.getDatePosted(),
-                    createdReview.getTotalRating(),
-                    createdReview.getCourseTitle(),
-                    createdReview.getUsername(),
-                    createdReview.getComment(),
-                    createdReview.getPresentation(),
-                    createdReview.getOutgoing(),
-                    createdReview.getSubjectKnowledge(),
-                    createdReview.getListening(),
-                    createdReview.getCommunication(),
-                    createdReview.getAvailability());
+            ReviewResponse reviewResponse = convertToResponse(createdReview);
             return new ResponseEntity<>(reviewResponse, HttpStatus.CREATED);
     }
 
@@ -112,32 +88,25 @@ public class ReviewController {
             review.setCommunication(reviewUpdateRequest.getCommunication());
             review.setAvailability(reviewUpdateRequest.getAvailability());
             Review updatedReview = reviewService.updateReview(review);
-            ReviewResponse reviewResponse = new ReviewResponse(
-                    updatedReview.getTeacherName(),
-                    updatedReview.getDatePosted(),
-                    updatedReview.getTotalRating(),
-                    updatedReview.getCourseTitle(),
-                    updatedReview.getUsername(),
-                    updatedReview.getComment(),
-                    updatedReview.getPresentation(),
-                    updatedReview.getOutgoing(),
-                    updatedReview.getSubjectKnowledge(),
-                    updatedReview.getListening(),
-                    updatedReview.getCommunication(),
-                    updatedReview.getAvailability());
+            ReviewResponse reviewResponse = convertToResponse(updatedReview);
             return ResponseEntity.accepted().body(reviewResponse);
         } catch (ReviewNotFoundException e){
             return ResponseEntity.notFound().build();
         }
     }
 
-    /**
-     * TODO by jerrett
-     *
-     * DELETE - deleteReview(ReviewDeleteRequest deleteRequest)
-     * /teacher/{teacherName}
-     * returns ResponseEntity<ReviewResponse>
-     */
+    @DeleteMapping("/teacher/{teacherName}")
+    public ResponseEntity<ReviewResponse> deleteReview(@RequestBody ReviewDeleteRequest deleteRequest) {
+        Review review = new Review();
+        review.setTeacherName(deleteRequest.getTeacherName());
+        review.setDatePosted(deleteRequest.getDatePosted());
+        try {
+            reviewService.deleteReview(review);
+            return ResponseEntity.accepted().build();
+        } catch (ReviewNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     private ReviewResponse convertToResponse(Review review) {
         return new ReviewResponse(
