@@ -10,7 +10,8 @@ import java.util.concurrent.TimeUnit;
 @EnableCaching
 public class CacheConfig {
 
-    // Create a Cache here if needed
+    // TODO create a cache for searching by teacherName
+    // TODO create a cahce for searching by courseTitle
 
 //    @Bean
 //    public CacheStore myCache() {
