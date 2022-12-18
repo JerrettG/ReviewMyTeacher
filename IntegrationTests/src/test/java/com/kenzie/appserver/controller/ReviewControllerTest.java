@@ -62,7 +62,7 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
         queryUtility.reviewControllerClient.getAllReviewsForTeacher(reviewCreateRequest.getTeacherName())
                 .andExpect(status().isOk())
@@ -79,7 +79,7 @@ public class ReviewControllerTest {
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
 
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
         queryUtility.reviewControllerClient.getAllReviewsForCourse(reviewCreateRequest.getCourseTitle())
                 .andExpect(status().isOk())
