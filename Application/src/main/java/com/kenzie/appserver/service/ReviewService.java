@@ -1,6 +1,7 @@
 package com.kenzie.appserver.service;
 
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.kenzie.appserver.config.ReviewCache;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
@@ -14,9 +15,11 @@ import java.util.List;
 @Service
 public class ReviewService {
     private final ReviewRepository reviewRepository;
+    private final ReviewCache cache;
 
-    public ReviewService(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewCache cache) {
         this.reviewRepository = reviewRepository;
+        this.cache = cache;
     }
 
     public List<Review> getAllByTeacherName(String teacherName) {
@@ -27,9 +30,16 @@ public class ReviewService {
     }
 
     public List<Review> getAllByCourseTitle(String courseTitle) {
+        List<Review> cachedReview = cache.getAllReviewsByCourseTitle(courseTitle);
+
+        if(cachedReview != null) {
+            return cachedReview;
+        }
+
         List<ReviewEntity> reviewEntities = reviewRepository.findAllByCourseTitle(courseTitle);
         List<Review> reviews = new ArrayList<>();
         reviewEntities.forEach(entity -> reviews.add(convertToReview(entity)));
+        cache.addAllReviewsByCourseTitle(courseTitle, reviews);
         return reviews;
     }
 
@@ -38,6 +48,7 @@ public class ReviewService {
         review.setDatePosted();
         ReviewEntity entity = convertToEntity(review);
         reviewRepository.save(entity);
+        cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
         return review;
     }
 
@@ -47,6 +58,7 @@ public class ReviewService {
         ReviewEntity entity = convertToEntity(review);
         try{
             reviewRepository.save(entity);
+            cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
         } catch (ConditionalCheckFailedException e){
             throw new ReviewNotFoundException();
         }
@@ -60,6 +72,7 @@ public class ReviewService {
 
         ReviewEntity entity = convertToEntity(review);
         reviewRepository.delete(entity);
+        cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
     }
 
 
