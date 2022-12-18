@@ -54,6 +54,10 @@ public class ReviewService {
     }
 
     public void deleteReview(Review review) {
+        /* TODO check if review exists before deleting. throw custom exception if not found.
+            Reason: DynamoDB does not throw an exception if item does not exist so no indication if successful
+        */
+
         ReviewEntity entity = convertToEntity(review);
         reviewRepository.delete(entity);
     }

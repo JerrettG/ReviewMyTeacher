@@ -20,6 +20,30 @@ public class ReviewController {
         this.reviewService = reviewService;
     }
 
+    /**
+     * TODO by jonathan
+     *
+     * GET - getAllReviewsForTeacher(String teacherName)
+     * /teacher/{teacherName}
+     * returns ResponseEntity<List<ReviewResponse>>
+     */
+
+    /**
+     * TODO by jonathan
+     *
+     * GET - getAllReviewsForCourseTitle(String courseTitle)
+     * /course/{courseTitle}
+     * returns ResponseEntity<List<ReviewResponse>>
+     */
+
+    /**
+     * TODO by jerrett
+     *
+     * GET - getAllReviewsByUsername(String username)
+     * /user/{username}
+     * returns ResponseEntity<List<ReviewResponse>>
+     */
+
     @PostMapping("/teacher/{teacherName}")
     public ResponseEntity<ReviewResponse> createReview(@PathVariable String teacherName, @RequestBody ReviewCreateRequest reviewCreateRequest) {
             Review review = new Review();
@@ -81,6 +105,14 @@ public class ReviewController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    /**
+     * TODO by jerrett
+     *
+     * DELETE - deleteReview(ReviewDeleteRequest deleteRequest)
+     * /teacher/{teacherName}
+     * returns ResponseEntity<ReviewResponse>
+     */
 
     private ReviewResponse convertToResponse(Review review) {
         return new ReviewResponse(
