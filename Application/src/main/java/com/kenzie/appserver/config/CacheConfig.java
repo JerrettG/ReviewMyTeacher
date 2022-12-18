@@ -11,10 +11,9 @@ import java.util.concurrent.TimeUnit;
 public class CacheConfig {
 
     // TODO create a cache for searching by teacherName
-    // TODO create a cahce for searching by courseTitle
 
-//    @Bean
-//    public CacheStore myCache() {
-//        return new CacheStore(120, TimeUnit.SECONDS);
-//    }
+    @Bean
+    public ReviewCache myCache() {
+        return new ReviewCache(120, TimeUnit.SECONDS, 1000);
+    }
 }

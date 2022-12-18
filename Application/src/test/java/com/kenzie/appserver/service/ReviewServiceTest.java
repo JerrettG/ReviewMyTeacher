@@ -1,6 +1,7 @@
 package com.kenzie.appserver.service;
 
 import com.amazonaws.services.dynamodbv2.model.ConditionalCheckFailedException;
+import com.kenzie.appserver.config.ReviewCache;
 import com.kenzie.appserver.exceptions.ReviewNotFoundException;
 import com.kenzie.appserver.repositories.ReviewRepository;
 import com.kenzie.appserver.repositories.model.ReviewEntity;
@@ -20,12 +21,14 @@ import static org.mockito.Mockito.*;
 public class ReviewServiceTest {
     private ReviewService reviewService;
     private ReviewRepository reviewRepository;
+    private ReviewCache cache;
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
     @BeforeEach
     public void setup() {
         reviewRepository = mock(ReviewRepository.class);
-        reviewService = new ReviewService(reviewRepository);
+        cache = mock(ReviewCache.class);
+        reviewService = new ReviewService(reviewRepository, cache);
     }
 
     /**

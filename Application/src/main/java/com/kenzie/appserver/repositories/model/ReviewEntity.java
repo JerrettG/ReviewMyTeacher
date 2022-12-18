@@ -10,6 +10,7 @@ public class ReviewEntity {
     public static final String COURSE_TITLE_INDEX = "CourseTitleIndex";
     public static final String USERNAME_INDEX = "UsernameIndex";
     @Id
+    @DynamoDBIgnore
     private ReviewPrimaryKey primaryKey;
     private double totalRating;
     private String courseTitle;
@@ -21,6 +22,8 @@ public class ReviewEntity {
     private double listening;
     private double communication;
     private double availability;
+
+    public ReviewEntity(){}
 
     public ReviewEntity(ReviewPrimaryKey primaryKey, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.primaryKey = primaryKey;
@@ -56,7 +59,7 @@ public class ReviewEntity {
     public void setDatePosted(String datePosted) {
         if (primaryKey == null)
             primaryKey = new ReviewPrimaryKey();
-        primaryKey.setTeacherName(datePosted);
+        primaryKey.setDatePosted(datePosted);
     }
 
     @DynamoDBAttribute(attributeName = "totalRating")

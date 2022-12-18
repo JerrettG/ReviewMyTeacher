@@ -31,7 +31,13 @@ public class ReviewResponse {
     private double availability;
 
     public ReviewResponse() {}
-    public ReviewResponse(String teacherName, String datePosted, double totalRating, String courseTitle, String username, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
+    public ReviewResponse(
+            String teacherName, String datePosted,
+            double totalRating, String courseTitle,
+            String username, String comment,
+            double presentation, double outgoing,
+            double subjectKnowledge, double listening,
+            double communication, double availability) {
         this.teacherName = teacherName;
         this.datePosted = datePosted;
         this.totalRating = totalRating;
@@ -78,10 +84,7 @@ public class ReviewResponse {
         this.courseTitle = courseTitle;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
+    public String getUsername() {return username;}
     public void setUsername(String username) {
         this.username = username;
     }
@@ -134,11 +137,11 @@ public class ReviewResponse {
         this.communication = communication;
     }
 
-    public double getAvaiability() {
+    public double getAvailability() {
         return availability;
     }
 
-    public void setAvaiability(double availability) {
+    public void setAvailability(double availability) {
         this.availability = availability;
     }
 }

@@ -4,6 +4,8 @@ public class ReviewDeleteRequest {
     private String teacherName;
     private String datePosted;
 
+    public ReviewDeleteRequest() {}
+
     public ReviewDeleteRequest(String teacherName, String datePosted) {
         this.teacherName = teacherName;
         this.datePosted = datePosted;
