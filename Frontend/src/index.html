@@ -35,7 +35,7 @@
     </header>
     <section id="search-submission-forms">
         <div class="search-form-containers">
-            <div class="search-by-course-container">
+            <div class="search-by-container">
                 <label>Search by Course Title:
                 <form id="search-by-course-form">
                     <select class="course-selection" id="selected-course">
@@ -50,11 +50,27 @@
                 </form>
                 </label>
             </div>
-            <form id="search-by-teacher-form">
-                <select class="teacher-selection" id="selected-teacher">
-                    <option>Professor teacher</option>
-                </select>
-            </form>
+            <div class="search-by-container">
+                <label>Search by Teacher Name:
+                <form id="search-by-teacher-form">
+                    <select class="teacher-selection" id="selected-teacher">
+                        <option>Sam Smith</option>
+                        <option>John Doe</option>
+                        <option>Lisa Wreight</option>
+                        <option>Kim Young</option>
+                        <option>Bob Gains</option>
+                        <option>Sydney Buckets</option>
+                        <option>Harry Potter</option>
+                        <option>Peter Parker</option>
+                        <option>Kyle Waltz</option>
+                        <option>Donald Clark</option>
+                        <option>Johnny Kreider</option>
+                        <option>Austin Andrews</option>
+                    </select>
+                    <button>Search</button>
+                </form>
+                </label>
+            </div>
         </div>
         <form id="create-review-form">
             <h1>Post a review</h1>
@@ -238,27 +254,27 @@
 </html>
 <!-- TODO make it so when 'Account' link is clicked, the reviews for the user are loaded with review cards that look
         like the below that will prompt user for an edit form when edit is clicked or confirmation of deletion -->
-<!--<div class="review-container">-->
-<!--    <div class="review-info">-->
-<!--        <div class="review-info-top-container">-->
-<!--            <div class="course-teacher-total-container">-->
-<!--                <div class="total-rating-container"><span class="total-rating">4.0</span></div>-->
-<!--                <span class="course-title">Course title: COMPSCI-101</span>-->
-<!--                <span class="teacher-name">Teacher name: Professor Teacher</span>-->
-<!--            </div>-->
-<!--            <div class="update-delete-buttons">-->
-<!--                <span class="edit-review">Edit</span>-->
-<!--                <span class="delete-review">Delete</span>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="review-info-mid-container">-->
-<!--            <span class="review-info-rating">Presentation: 3.0</span>-->
-<!--            <span class="review-info-rating">Outgoing: 3.0</span>-->
-<!--            <span class="review-info-rating">Subject knowledge: 3.0</span>-->
-<!--            <span class="review-info-rating">Listening: 3.0</span>-->
-<!--            <span class="review-info-rating">Communication: 3.0</span>-->
-<!--            <span class="review-info-rating">Availability: 3.0</span>-->
-<!--        </div>-->
-<!--        <div class="comment-display"><span>Lorem Ipsum adlfk;jasldfjkalsdfjlaksjflksadjf</span></div>-->
-<!--    </div>-->
-<!--</div>-->
+<div class="review-container">
+    <div class="review-info">
+        <div class="review-info-top-container">
+            <div class="course-teacher-total-container">
+                <div class="total-rating-container"><span class="total-rating">4.0</span></div>
+                <span class="course-title">Course title: COMPSCI-101</span>
+                <span class="teacher-name">Teacher name: Professor Teacher</span>
+            </div>
+            <div class="update-delete-buttons">
+                <span class="edit-review">Edit</span>
+                <span class="delete-review">Delete</span>
+            </div>
+        </div>
+        <div class="review-info-mid-container">
+            <span class="review-info-rating">Presentation: 3.0</span>
+            <span class="review-info-rating">Outgoing: 3.0</span>
+            <span class="review-info-rating">Subject knowledge: 3.0</span>
+            <span class="review-info-rating">Listening: 3.0</span>
+            <span class="review-info-rating">Communication: 3.0</span>
+            <span class="review-info-rating">Availability: 3.0</span>
+        </div>
+        <div class="comment-display"><span>Lorem Ipsum adlfk;jasldfjkalsdfjlaksjflksadjf</span></div>
+    </div>
+</div>
