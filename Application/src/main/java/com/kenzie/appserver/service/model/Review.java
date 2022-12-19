@@ -132,7 +132,7 @@ public class Review {
     }
 
     public void calculateAndSetTotalRating(){
-        double sum = (this.presentation +
+        this.totalRating = (this.presentation +
                 this.outgoing +
                 this.subjectKnowledge +
                 this.listening +

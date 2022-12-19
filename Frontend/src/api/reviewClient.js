@@ -57,9 +57,9 @@ export default class ReviewClient extends BaseClass {
             this.handleError("getReviewsByCourse", error, errorCallback)
         }
     }
-    async getReviewsByUsername(courseTitle, errorCallback) {
+    async getReviewsByUsername(username, errorCallback) {
         try {
-            const response = await this.client.get(`/api/v1/reviewMyTeacher/user/{username}`);
+            const response = await this.client.get(`/api/v1/reviewMyTeacher/user/${username}`);
             return response.data;
         } catch (error) {
             this.handleError("getReviewsByCourse", error, errorCallback)
@@ -150,9 +150,11 @@ export default class ReviewClient extends BaseClass {
     async deleteReview(teacherName, datePosted, errorCallback) {
         try {
             const response = await this.client.delete(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
+                data : {
                     teacherName: teacherName,
                     datePosted: datePosted,
-                });
+                }
+            });
             return response.data;
         } catch (error) {
             this.handleError("deleteReview", error, errorCallback);

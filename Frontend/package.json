@@ -10,8 +10,8 @@
   },
   "scripts": {
     "start": "webpack-dev-server -d --mode=development --hot --inline",
-    "dev": "nodemon server.js",
-    "init-server": "node server.js",
+    "dev": "",
+    "init-server": "",
     "prepublishOnly": "npm run build",
     "build": "webpack -p --mode=production --devtool=source-map"
   },

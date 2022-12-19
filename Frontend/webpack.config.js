@@ -27,7 +27,10 @@ module.exports = {
     overlay: true,
     proxy: [
       {
-          '/api/v1/reviewMyTeacher/': 'http://localhost:5001',
+        context: [
+          '/api/v1/reviewMyTeacher/'
+        ],
+        target: 'http://localhost:5001'
       }
     ]
   },

@@ -5,8 +5,8 @@
     <script defer type="text/javascript" src="app.js"></script>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">-->
     <script src="https://kit.fontawesome.com/829e5d7ffb.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
 </head>
 <body class="background">
     <header>
@@ -20,7 +20,7 @@
                     <div class="account-dropdown">
                         <div class="account-dropbutton-container">
                             <button class="account-dropbutton" id="account-dropbutton">
-                                <span id="logged-in-welcome"> </span>
+                                <span id="logged-in-welcome"></span>
                                 <i class="fa-solid fa-user"></i>
                             </button>
                         </div>
@@ -77,12 +77,28 @@
             <div class="course-teacher-input">
                 <label>Course title:
                     <select class="course-selection" name="courseTitle">
-                        <option>CS-101</option>
+                        <option>Math 101</option>
+                        <option>Sci 101</option>
+                        <option>Eng 101</option>
+                        <option>Hist 101</option>
+                        <option>Workshop</option>
+                        <option>Music Theory</option>
                     </select>
                 </label>
                 <label>Teacher name:
                     <select class="teacher-selection" name="teacherName">
-                        <option>Professor teacher</option>
+                        <option>Sam Smith</option>
+                        <option>John Doe</option>
+                        <option>Lisa Wreight</option>
+                        <option>Kim Young</option>
+                        <option>Bob Gains</option>
+                        <option>Sydney Buckets</option>
+                        <option>Harry Potter</option>
+                        <option>Peter Parker</option>
+                        <option>Kyle Waltz</option>
+                        <option>Donald Clark</option>
+                        <option>Johnny Kreider</option>
+                        <option>Austin Andrews</option>
                     </select>
                 </label>
             </div>
@@ -244,15 +260,10 @@
     <section>
         <div class="filter-buttons-container">
             <button id="sort-button">Sort by</button>
-            <button id="reviews-user-made-button">Find reviews you've made</button>
+
         </div>
         <div class="result-info" id="result-area">
         </div>
     </section>
-    <!-- TODO make it so when 'Account' link is clicked, the reviews for the user are loaded with review cards that look
-            like the below that will prompt user for an edit form when edit is clicked or confirmation of deletion -->
-
-    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
-
 </body>
 </html>

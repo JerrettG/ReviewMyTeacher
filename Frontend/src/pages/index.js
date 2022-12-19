@@ -11,8 +11,8 @@ class IndexPage extends BaseClass {
         super();
         this.bindClassMethods([
             'onCreateReview', 'onGetByTeacherName',
-            'onGetByCourseTitle', 'onUpdateReview',
-            'onDeleteReview', 'renderReviews', 'enableForm'], this);
+            'onGetByCourseTitle', 'onGetByUsername','onUpdateReview',
+            'onDeleteReview', 'renderReviews','editFunctionality'], this);
         this.dataStore = new DataStore();
     }
 
@@ -21,22 +21,11 @@ class IndexPage extends BaseClass {
         document.getElementById('search-by-course-form').addEventListener('submit', this.onGetByCourseTitle);
         document.getElementById('create-review-form').addEventListener('submit', this.onCreateReview);
         document.getElementById('account-link').addEventListener('click', this.onGetByUsername);
-        const editButtons = document.querySelectorAll('.edit-review');
-        const cancelButtons = document.querySelectorAll('.cancel-edit');
-        const deleteButtons = document.querySelectorAll('.delete-review');
 
-        for (let button of editButtons) {
-            button.addEventListener('click', this.enableForm);
-        }
-        for (let button of cancelButtons) {
-            button.addEventListener('click', this.disableForm);
-        }
-        for (let button of deleteButtons) {
-            button.addEventListener('click', this.onDeleteReview);
-        }
         this.client = new ReviewClient();
 
-        this.dataStore.addChangeListener(this.renderReviews())
+        this.dataStore.addChangeListener(this.renderReviews);
+        this.dataStore.addChangeListener(this.editFunctionality);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -94,6 +83,7 @@ class IndexPage extends BaseClass {
                                         <div class="total-rating-container"><span class="total-rating">${review.totalRating}</span></div>
                                         <span class="course-title">Course title: ${review.courseTitle}</span>
                                         <span class="teacher-name">Teacher name: ${review.teacherName}</span>
+                                        <span>Username; ${review.username}</span>
                                         <span class="date-posted">Date Posted: ${review.datePosted}</span>
                                     </div>
                                     <div class="review-info-mid-container">
@@ -114,6 +104,9 @@ class IndexPage extends BaseClass {
         }
         else {
             resultArea.innerHTML = "No reviews found";
+        }
+        if (window.onload) {
+            this.editFunctionality();
         }
     }
 
@@ -153,11 +146,8 @@ class IndexPage extends BaseClass {
     }
 
     async onGetByUsername(event) {
-        event.preventDefault();
-
-        let username = document.getElementById("logged-in-welcome").value;
+        let username = document.getElementById("logged-in-welcome").innerText;
         this.dataStore.set("reviews", null);
-
         let result = await this.client.getReviewsByUsername(username, this.errorHandler);
         this.dataStore.set("reviews", result);
         this.dataStore.set("getReviewsForUser", true);
@@ -175,7 +165,7 @@ class IndexPage extends BaseClass {
         let formData = new FormData(createReviewForm);
         let teacherName = formData.get('teacherName');
         let courseTitle = formData.get('courseTitle');
-        let username = 'usernamePlaceholder';
+        let username =  document.getElementById('logged-in-welcome').innerText;
         let comment = formData.get('comment');
         let presentation = formData.get('presentation');
         let availability = formData.get('availability');
@@ -226,10 +216,11 @@ class IndexPage extends BaseClass {
         let result = confirm("Are you sure you want to delete?");
         if (result) {
             // Prevent the page from refreshing on form submit
-            console.log("this worked");
             let deleteButton = event.srcElement;
+
             let form = deleteButton.closest('.review-container');
             let formData = new FormData(form);
+
             let teacherName = formData.get('teacherName');
             let datePosted = formData.get('datePosted');
 
@@ -237,6 +228,7 @@ class IndexPage extends BaseClass {
                 teacherName, datePosted, this.errorHandler);
 
             if (deletedReview) {
+                form.remove();
                 this.showMessage(`Deleted a review for ${deletedReview.teacherName}`)
             } else {
                 this.errorHandler("Error creating!  Try again...");
@@ -255,6 +247,22 @@ class IndexPage extends BaseClass {
         fieldset.disabled = true;
     }
 
+    editFunctionality(event) {
+
+        const editButtons = document.querySelectorAll('.edit-review');
+        const cancelButtons = document.querySelectorAll('.cancel-edit');
+        const deleteButtons = document.querySelectorAll('.delete-review');
+
+        for (let button of editButtons) {
+            button.addEventListener('click', this.enableForm);
+        }
+        for (let button of cancelButtons) {
+            button.addEventListener('click', this.disableForm);
+        }
+        for (let button of deleteButtons) {
+            button.addEventListener('click', this.onDeleteReview);
+        }
+    }
 }
 
 /**
