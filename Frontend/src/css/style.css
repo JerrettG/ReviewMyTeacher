@@ -107,11 +107,13 @@ a {
         height: 150px;
         display: flex;
         flex-direction: row;
+        align-content: center;
 }
 
-.search-by-course-container{
-background-color: #750D37;
-height: 3em;
+.search-by-container{
+    background-color: #750D37;
+    height: 3em;
+    padding: 10px;
 }
 
 select{
