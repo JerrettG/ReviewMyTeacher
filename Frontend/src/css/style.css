@@ -99,7 +99,25 @@ a {
     cursor: pointer;
 }
 
+.search-form-containers {
+        background-color: #34495E;
+        color: white;
+        padding: 2em;
+        width: 400px;
+        height: 150px;
+        display: flex;
+        flex-direction: row;
+}
 
+.search-by-course-container{
+background-color: #750D37;
+height: 3em;
+}
+
+select{
+    size: 5;
+    overflow-y: scroll;
+}
 
 #search-submission-forms {
     margin-top: 2em;
