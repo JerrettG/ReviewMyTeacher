@@ -69,6 +69,11 @@ a {
 
 }
 
+#account-link {
+    display: none;
+}
+
+
 .account-dropdown-content {
     display: none;
     justify-content: flex-end;
@@ -279,8 +284,26 @@ select{
     column-gap: 1em;
 }
 .edit-review {
-    color: lightgray;
+    color: #d3d3d3;
+}
+.edit-review:hover {
+    color: darkgray;
+    cursor:pointer;
+
 }
 .delete-review {
     color: #b02626;
+}
+
+.rating-input {
+
+}
+
+.comment {
+    width:100%;
+    height: 100%;
+}
+
+fieldset {
+    display: contents;
 }

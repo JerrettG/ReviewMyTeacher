@@ -45,7 +45,9 @@ const updateUI = async () => {
         //display username if user is logged in
         document.getElementById('logged-in-welcome').innerHTML = `${user.nickname}`;
         document.getElementById("reviews-user-made-button").style.display = 'block';
-        document.getElementById("account-link").addEventListener("click", account);
+        const accountLink = document.getElementById("account-link")
+        accountLink.addEventListener("click", account);
+        accountLink.style.display = 'block';
     }
 
 };
