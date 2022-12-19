@@ -10,9 +10,15 @@ import java.util.concurrent.TimeUnit;
 
 public class ReviewCache {
     private final Cache<String, List<Review>> courseTitleCache;
+    private final Cache<String, List<Review>> teacherNameCache;
 
     public ReviewCache(int expiry, TimeUnit timeUnit, long maximumSize) {
         this.courseTitleCache = CacheBuilder.newBuilder()
+                .expireAfterWrite(expiry, timeUnit)
+                .maximumSize(maximumSize)
+                .concurrencyLevel(Runtime.getRuntime().availableProcessors())
+                .build();
+        this.teacherNameCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(expiry, timeUnit)
                 .maximumSize(maximumSize)
                 .concurrencyLevel(Runtime.getRuntime().availableProcessors())
@@ -29,5 +35,14 @@ public class ReviewCache {
 
     public void addAllReviewsByCourseTitle(String courseTitle, List<Review> value){
         courseTitleCache.put(courseTitle, value);
+    }
+    public List<Review> getAllReviewsByTeacherName(String teacherName){
+        return teacherNameCache.getIfPresent(teacherName);
+    }
+    public void evictAllReviewsByTeacherName(String teacherName){
+        teacherNameCache.invalidate(teacherName);
+    }
+    public void addAllReviewsByTeacherName(String teacherName, List<Review> value){
+        teacherNameCache.put(teacherName, value);
     }
 }
