@@ -34,16 +34,28 @@
         </nav>
     </header>
     <section id="search-submission-forms">
-        <form id="search-by-course-form">
-            <select class="course-selection" id="selected-course">
-                <option>CS-101</option>
-            </select>
-        </form>
-        <form id="search-by-teacher-form">
-            <select class="teacher-selection" id="selected-teacher">
-                <option>Professor teacher</option>
-            </select>
-        </form>
+        <div class="search-form-containers">
+            <div class="search-by-course-container">
+                <label>Search by Course Title:
+                <form id="search-by-course-form">
+                    <select class="course-selection" id="selected-course">
+                        <option>Math 101</option>
+                        <option>Sci 101</option>
+                        <option>Eng 101</option>
+                        <option>Hist 101</option>
+                        <option>Workshop</option>
+                        <option>Music Theory</option>
+                    </select>
+                    <button>Search</button>
+                </form>
+                </label>
+            </div>
+            <form id="search-by-teacher-form">
+                <select class="teacher-selection" id="selected-teacher">
+                    <option>Professor teacher</option>
+                </select>
+            </form>
+        </div>
         <form id="create-review-form">
             <h1>Post a review</h1>
             <div class="course-teacher-input">
