@@ -22,6 +22,7 @@ public class ReviewServiceTest {
     private ReviewService reviewService;
     private ReviewRepository reviewRepository;
     private ReviewCache cache;
+
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
     @BeforeEach

@@ -18,12 +18,17 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ReviewCache cache;
     @Autowired
-    public ReviewService(ReviewRepository reviewRepository, ReviewCache cache) {
+    public ReviewService(ReviewRepository reviewRepository, ReviewCache cache){
         this.reviewRepository = reviewRepository;
         this.cache = cache;
     }
 
     public List<Review> getAllByTeacherName(String teacherName) {
+        List<Review> cacheReviews = cache.getAllReviewsByTeacherName(teacherName);
+        if (cacheReviews != null){
+            return cacheReviews;
+        }
+
         List<ReviewEntity> reviewEntities = reviewRepository.findAllByTeacherName(teacherName);
         List<Review> reviews = new ArrayList<>();
         reviewEntities.forEach(entity -> reviews.add(convertToReview(entity)));
@@ -57,6 +62,7 @@ public class ReviewService {
         ReviewEntity entity = convertToEntity(review);
         reviewRepository.save(entity);
         cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
+        cache.evictAllReviewsByTeacherName(entity.getTeacherName());
         return review;
     }
 
@@ -70,6 +76,7 @@ public class ReviewService {
             ReviewEntity entity = convertToEntity(review);
             reviewRepository.save(entity);
             cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
+            cache.evictAllReviewsByTeacherName(entity.getTeacherName());
         }
 
         return review;
@@ -83,6 +90,7 @@ public class ReviewService {
             ReviewEntity entity = convertToEntity(review);
             reviewRepository.delete(entity);
             cache.evictAllReviewsByCourseTitle(entity.getCourseTitle());
+            cache.evictAllReviewsByTeacherName(entity.getTeacherName());
         }
     }
 
