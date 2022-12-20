@@ -108,7 +108,9 @@ export default class ReviewClient extends BaseClass {
      * Makes a request to the backend to update an existing review. Any unchanged fields will remain the same.
      * @param teacherName name of the teacher the review is for.
      * @param datePosted the timestamp the review was created at.
+     * @param courseTitle
      * @param comment the updated comment for the review.
+     * @param username
      * @param presentation the updated (number) rating for presentation skills of the teacher on the review.
      * @param availability the updated (number) rating for availability of the teacher on the review.
      * @param outgoing the updated (number) rating for how outgoing the teacher is on the review.
@@ -118,14 +120,16 @@ export default class ReviewClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns the full updated review
      */
-    async updateReview(teacherName,datePosted, comment, presentation,
+    async updateReview(teacherName,datePosted, courseTitle, comment, username, presentation,
                        availability, outgoing, listening, communication,
                        subjectKnowledge, errorCallback) {
         try {
             const response = await this.client.put(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
                     teacherName: teacherName,
                     datePosted: datePosted,
+                    courseTitle: courseTitle,
                     comment: comment,
+                    username: username,
                     presentation: presentation,
                     availability: availability,
                     outgoing: outgoing,
@@ -147,15 +151,16 @@ export default class ReviewClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns response with status code 202 if successful, 404 not found if not.
      */
-    async deleteReview(teacherName, datePosted, errorCallback) {
+    async deleteReview(teacherName, datePosted, courseTitle, errorCallback) {
         try {
             const response = await this.client.delete(`/api/v1/reviewMyTeacher/teacher/${teacherName}`, {
                 data : {
                     teacherName: teacherName,
                     datePosted: datePosted,
+                    courseTitle: courseTitle
                 }
             });
-            return response.data;
+            return response;
         } catch (error) {
             this.handleError("deleteReview", error, errorCallback);
         }

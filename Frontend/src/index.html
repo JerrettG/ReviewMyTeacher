@@ -7,6 +7,16 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <script src="https://kit.fontawesome.com/829e5d7ffb.js" crossorigin="anonymous"></script>
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script type="text/javascript">
+        function captcha_filled() {
+            document.getElementById('create-review-form-submit').disabled = false;
+        }
+
+        function captcha_expired() {
+            document.getElementById('create-review-form-submit').disabled = true;
+        }
+    </script>
 </head>
 <body class="background">
     <header>
@@ -72,7 +82,7 @@
                 </label>
             </div>
         </div>
-        <form id="create-review-form">
+        <form id="create-review-form" >
             <h1>Post a review</h1>
             <div class="course-teacher-input">
                 <label>Course title:
@@ -101,20 +111,6 @@
                         <option>Austin Andrews</option>
                     </select>
                 </label>
-<!--                TODO this is the reCaptcha stuff-->
-<!--                <html>-->
-<!--                <head>-->
-<!--                    <title>reCAPTCHA demo: Simple page</title>-->
-<!--                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
-<!--                </head>-->
-<!--                <body>-->
-<!--                <form action="?" method="POST">-->
-<!--                    <div class="g-recaptcha" data-sitekey="6Ld3sZEjAAAAAHYtJa6aVNslXKj9ai2ij81_IjBx"></div>-->
-<!--                    <br/>-->
-<!--                    <input type="submit" value="Submit">-->
-<!--                </form>-->
-<!--                </body>-->
-<!--                </html>-->
             </div>
             <div class="rating-container">
                 <p>Presentation:</p>
@@ -123,19 +119,19 @@
                     <label class="rating-1-label" for="presentation-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="presentation" class="star2" value="2.0" id="presentation-rating-2">
+                    <input required type="radio" name="presentation" class="star2" value="2.0" id="presentation-rating-2">
                     <label  class="rating-2-label" for="presentation-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="presentation" class="star3" value="3.0" id="presentation-rating-3">
+                    <input required type="radio" name="presentation" class="star3" value="3.0" id="presentation-rating-3">
                     <label  class="rating-3-label" for="presentation-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="presentation" class="star4" value="4.0" id="presentation-rating-4">
+                    <input required type="radio" name="presentation" class="star4" value="4.0" id="presentation-rating-4">
                     <label  class="rating-4-label" for="presentation-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="presentation" class="star5" value="5.0" id="presentation-rating-5">
+                    <input required type="radio" name="presentation" class="star5" value="5.0" id="presentation-rating-5">
                     <label  class="rating-5-label" for="presentation-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
@@ -148,19 +144,19 @@
                     <label class="rating-1-label" for="outgoing-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="outgoing" class="star2" value="2.0" id="outgoing-rating-2">
+                    <input required type="radio" name="outgoing" class="star2" value="2.0" id="outgoing-rating-2">
                     <label  class="rating-2-label" for="outgoing-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="outgoing" class="star3" value="3.0" id="outgoing-rating-3">
+                    <input required type="radio" name="outgoing" class="star3" value="3.0" id="outgoing-rating-3">
                     <label  class="rating-3-label" for="outgoing-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="outgoing" class="star4" value="4.0" id="outgoing-rating-4">
+                    <input required type="radio" name="outgoing" class="star4" value="4.0" id="outgoing-rating-4">
                     <label  class="rating-4-label" for="outgoing-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="outgoing" class="star5" value="5.0" id="outgoing-rating-5">
+                    <input required type="radio" name="outgoing" class="star5" value="5.0" id="outgoing-rating-5">
                     <label  class="rating-5-label" for="outgoing-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
@@ -173,19 +169,19 @@
                     <label class="rating-1-label" for="subject-knowledge-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="subjectKnowledge" class="star2" value="2.0" id="subject-knowledge-rating-2">
+                    <input required type="radio" name="subjectKnowledge" class="star2" value="2.0" id="subject-knowledge-rating-2">
                     <label  class="rating-2-label" for="subject-knowledge-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="subjectKnowledge" class="star3" value="3.0" id="subject-knowledge-rating-3">
+                    <input required type="radio" name="subjectKnowledge" class="star3" value="3.0" id="subject-knowledge-rating-3">
                     <label  class="rating-3-label" for="subject-knowledge-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="subjectKnowledge" class="star4" value="4.0" id="subject-knowledge-rating-4">
+                    <input required type="radio" name="subjectKnowledge" class="star4" value="4.0" id="subject-knowledge-rating-4">
                     <label  class="rating-4-label" for="subject-knowledge-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="subjectKnowledge" class="star5" value="5.0" id="subject-knowledge-rating-5">
+                    <input required type="radio" name="subjectKnowledge" class="star5" value="5.0" id="subject-knowledge-rating-5">
                     <label  class="rating-5-label" for="subject-knowledge-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
@@ -198,19 +194,19 @@
                     <label class="rating-1-label" for="listening-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="listening" class="star2" value="2.0" id="listening-rating-2">
+                    <input required type="radio" name="listening" class="star2" value="2.0" id="listening-rating-2">
                     <label  class="rating-2-label" for="listening-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="listening" class="star3" value="3.0" id="listening-rating-3">
+                    <input required type="radio" name="listening" class="star3" value="3.0" id="listening-rating-3">
                     <label  class="rating-3-label" for="listening-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="listening" class="star4" value="4.0" id="listening-rating-4">
+                    <input required type="radio" name="listening" class="star4" value="4.0" id="listening-rating-4">
                     <label  class="rating-4-label" for="listening-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="listening" class="star5" value="5.0" id="listening-rating-5">
+                    <input required type="radio" name="listening" class="star5" value="5.0" id="listening-rating-5">
                     <label  class="rating-5-label" for="listening-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
@@ -219,23 +215,23 @@
             <div class="rating-container">
                 <p>Communication:</p>
                 <div class="rating">
-                    <input type="radio" name="communication" class="star1" value="1.0" id="communication-rating-1">
+                    <input required type="radio" name="communication" class="star1" value="1.0" id="communication-rating-1">
                     <label class="rating-1-label" for="communication-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="communication" class="star2" value="2.0" id="communication-rating-2">
+                    <input required type="radio" name="communication" class="star2" value="2.0" id="communication-rating-2">
                     <label  class="rating-2-label" for="communication-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="communication" class="star3" value="3.0" id="communication-rating-3">
+                    <input required type="radio" name="communication" class="star3" value="3.0" id="communication-rating-3">
                     <label  class="rating-3-label" for="communication-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="communication" class="star4" value="4.0" id="communication-rating-4">
+                    <input required type="radio" name="communication" class="star4" value="4.0" id="communication-rating-4">
                     <label  class="rating-4-label" for="communication-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="communication" class="star5" value="5.0" id="communication-rating-5">
+                    <input required type="radio" name="communication" class="star5" value="5.0" id="communication-rating-5">
                     <label  class="rating-5-label" for="communication-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
@@ -244,31 +240,34 @@
             <div class="rating-container">
                 <p>Availability:</p>
                 <div class="rating">
-                    <input id="availability-rating-1" type="radio" name="availability" class="star1" value="1.0">
+                    <input required id="availability-rating-1" type="radio" name="availability" class="star1" value="1.0">
                     <label class="rating-1-label" for="availability-rating-1">
                         <i class="fa-regular fa-face-tired"></i>
                     </label>
-                    <input type="radio" name="availability" class="star2" value="2.0" id="availability-rating-2">
+                    <input required type="radio" name="availability" class="star2" value="2.0" id="availability-rating-2">
                     <label  class="rating-2-label" for="availability-rating-2">
                         <i class="fa-regular fa-face-frown-open"></i>
                     </label>
-                    <input type="radio" name="availability" class="star3" value="3.0" id="availability-rating-3">
+                    <input required type="radio" name="availability" class="star3" value="3.0" id="availability-rating-3">
                     <label  class="rating-3-label" for="availability-rating-3">
                         <i class="fa-regular fa-face-meh"></i>
                     </label>
-                    <input type="radio" name="availability" class="star4" value="4.0" id="availability-rating-4">
+                    <input required type="radio" name="availability" class="star4" value="4.0" id="availability-rating-4">
                     <label  class="rating-4-label" for="availability-rating-4">
                         <i class="fa-regular fa-face-smile"></i>
                     </label>
-                    <input type="radio" name="availability" class="star5" value="5.0" id="availability-rating-5">
+                    <input required type="radio" name="availability" class="star5" value="5.0" id="availability-rating-5">
                     <label  class="rating-5-label" for="availability-rating-5">
                         <i class="fa-regular fa-face-grin-stars"></i>
                     </label>
                 </div>
             </div>
             <p id="comment-label">Leave a comment:</p>
-            <textarea form="create-review-form" name="comment" class="comment-text-box"></textarea>
-            <button>Submit</button>
+            <textarea required form="create-review-form" name="comment" class="comment-text-box"></textarea>
+            <div class="g-recaptcha" data-sitekey="6Ld3sZEjAAAAAHYtJa6aVNslXKj9ai2ij81_IjBx" data-callback="captcha_filled"
+                 data-expired-callback="captcha_expired"></div>
+
+            <button id="create-review-form-submit" disabled>Submit</button>
         </form>
     </section>
     <section>

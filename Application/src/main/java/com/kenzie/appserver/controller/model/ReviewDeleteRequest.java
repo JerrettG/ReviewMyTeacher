@@ -3,6 +3,7 @@ package com.kenzie.appserver.controller.model;
 public class ReviewDeleteRequest {
     private String teacherName;
     private String datePosted;
+    private String courseTitle;
 
     public ReviewDeleteRequest() {}
 
@@ -25,5 +26,12 @@ public class ReviewDeleteRequest {
 
     public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
+    }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
     }
 }

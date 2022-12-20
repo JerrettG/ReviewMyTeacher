@@ -3,7 +3,9 @@ package com.kenzie.appserver.controller.model;
 public class ReviewUpdateRequest {
     private String teacherName;
     private String datePosted;
+    private String courseTitle;
     private String comment;
+    private String username;
     private double presentation;
     private double outgoing;
     private double subjectKnowledge;
@@ -38,6 +40,8 @@ public class ReviewUpdateRequest {
     public void setDatePosted(String datePosted) {
         this.datePosted = datePosted;
     }
+    public String getCourseTitle() {return courseTitle;}
+    public void setCourseTitle(String courseTitle) {this.courseTitle = courseTitle;}
 
     public String getComment() {
         return comment;
@@ -45,6 +49,14 @@ public class ReviewUpdateRequest {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public double getPresentation() {
