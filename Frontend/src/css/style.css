@@ -1,7 +1,7 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #131921;
-    --secondary-color: #fff;
+    --primary-color: #2d2d2d;
+    --secondary-color: #105e10;
     --error-color: rgba(194, 0, 0, 0.71);
 }
 
@@ -105,7 +105,7 @@ a {
 }
 
 .search-form-containers {
-        background-color: #34495E;
+        background-color: var(--primary-color);
         color: white;
         padding: 2em;
         width: 400px;
@@ -116,7 +116,7 @@ a {
 }
 
 .search-by-container{
-    background-color: #750D37;
+    background-color: var(--secondary-color);
     height: 3em;
     padding: 10px;
 }
@@ -208,8 +208,11 @@ select{
     padding: 1em;
 }
 .result-info {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1em;
     margin: 3em;
-    background: beige;
+    background: var(--primary-color);
     padding: 1em;
     min-width: 800px;
     min-height: 400px;
@@ -218,7 +221,7 @@ select{
     min-width: 800px;
     width: 100%;
     min-height: 400px;
-    background-color: lightslategrey;
+    background-color: var(--secondary-color);
 }
 
 .review-info {
@@ -244,7 +247,7 @@ select{
 }
 
 .total-rating-container {
-    background-color: beige;
+    background-color: lightgrey;
     width: 75px;
     height: 50px;
     display: flex;
@@ -258,7 +261,7 @@ select{
 
 .comment-display {
     height: 175px;
-    background-color: white;
+    background-color: lightgrey;
     padding: 1em;
 }
 
@@ -292,7 +295,14 @@ select{
 
 }
 .delete-review {
-    color: #b02626;
+    color: #f55b5b;
+    transition: all 0.2s ease-in;
+
+}
+.delete-review:hover{
+    color: yellow;
+    cursor: pointer;
+
 }
 
 .rating-input {
@@ -300,8 +310,7 @@ select{
 }
 
 .comment {
-    width:100%;
-    height: 100%;
+
 }
 
 fieldset {

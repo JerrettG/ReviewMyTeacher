@@ -1,6 +1,7 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
 import ReviewClient from "../api/reviewClient";
+import { DateTimeFormatter, LocalDateTime } from 'js-joda'
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -37,6 +38,9 @@ class IndexPage extends BaseClass {
         let html = '';
         if (reviews && reviews.length > 0) {
             for (let review of reviews) {
+                let totalRating = (Math.round(review.totalRating * 100) / 100).toFixed(2);
+                let date = LocalDateTime.parse(review.datePosted);
+                let datePosted = date.format(DateTimeFormatter.ofPattern('M/d/yyyy'));
                 if (getReviewsForUser) {
                         html +=
                             `
@@ -45,14 +49,14 @@ class IndexPage extends BaseClass {
                                     <div class="review-info">
                                         <div class="review-info-top-container">
                                             <div class="course-teacher-total-container">
-                                                <div class="total-rating-container"><span class="total-rating">4.0</span></div>
+                                                <div class="total-rating-container"><span class="total-rating">${totalRating}</span></div>
                                                 <span class="course-title">Course title: ${review.courseTitle}</span>
                                                 <input type="hidden" value="${review.courseTitle}" name="courseTitle">
                                                 <span class="teacher-name">Teacher name: ${review.teacherName}</span>
                                                 <input type="hidden" value="${review.teacherName}" name="teacherName">
                                                 <span>Username: ${review.username}</span>
                                                 <input type="hidden" value="${review.username}" name="username">
-                                                <span class="date-posted">Date Posted: ${review.datePosted}</span>
+                                                <span class="date-posted">Date Posted: ${datePosted}</span>
                                                 <input type="hidden" value="${review.datePosted}" name="datePosted">
                                             </div>
                                             <div class="update-delete-buttons">
@@ -83,10 +87,10 @@ class IndexPage extends BaseClass {
                             <div class="review-container">
                                 <div class="review-info">
                                     <div class="review-info-top-container">
-                                        <div class="total-rating-container"><span class="total-rating">${review.totalRating}</span></div>
+                                        <div class="total-rating-container"><span class="total-rating">${totalRating}</span></div>
                                         <span class="course-title">Course title: ${review.courseTitle}</span>
                                         <span class="teacher-name">Teacher name: ${review.teacherName}</span>
-                                        <span class="date-posted">Date Posted: ${review.datePosted}</span>
+                                        <span class="date-posted">Date Posted: ${datePosted}</span>
                                     </div>
                                     <div class="review-info-mid-container">
                                         <span class="review-info-rating">Presentation: ${review.presentation}</span>
