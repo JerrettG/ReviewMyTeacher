@@ -32,6 +32,7 @@ public class ReviewService {
         List<ReviewEntity> reviewEntities = reviewRepository.findAllByTeacherName(teacherName);
         List<Review> reviews = new ArrayList<>();
         reviewEntities.forEach(entity -> reviews.add(convertToReview(entity)));
+        cache.addAllReviewsByTeacherName(teacherName, reviews);
         return reviews;
     }
 
@@ -58,6 +59,7 @@ public class ReviewService {
 
     public Review createReview(Review review) {
         review.calculateAndSetTotalRating();
+
         review.setDatePosted();
         ReviewEntity entity = convertToEntity(review);
         reviewRepository.save(entity);

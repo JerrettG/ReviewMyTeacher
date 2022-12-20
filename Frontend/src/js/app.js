@@ -35,7 +35,6 @@ const updateUI = async () => {
     if (!isAuthenticated) {
         loginLogout.innerHTML = "Login";
         loginLogout.onclick = login;
-        document.getElementById("reviews-user-made-button").style.display = 'none';
     }
 
     else if (isAuthenticated) {
@@ -44,7 +43,6 @@ const updateUI = async () => {
         loginLogout.onclick = logout;
         //display username if user is logged in
         document.getElementById('logged-in-welcome').innerHTML = `${user.nickname}`;
-        document.getElementById("reviews-user-made-button").style.display = 'block';
         const accountLink = document.getElementById("account-link")
         accountLink.addEventListener("click", account);
         accountLink.style.display = 'block';
