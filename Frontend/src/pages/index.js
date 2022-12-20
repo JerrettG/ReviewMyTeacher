@@ -21,7 +21,6 @@ class IndexPage extends BaseClass {
         document.getElementById('search-by-course-form').addEventListener('submit', this.onGetByCourseTitle);
         document.getElementById('create-review-form').addEventListener('submit', this.onCreateReview);
         document.getElementById('account-link').addEventListener('click', this.onGetByUsername);
-
         this.client = new ReviewClient();
 
         this.dataStore.addChangeListener(this.renderReviews);
@@ -42,35 +41,39 @@ class IndexPage extends BaseClass {
                         html +=
                             `
                             <form class="review-container" onsubmit="onUpdateReview(this)">
-                                <fieldset disabled>
+                                
                                     <div class="review-info">
                                         <div class="review-info-top-container">
                                             <div class="course-teacher-total-container">
                                                 <div class="total-rating-container"><span class="total-rating">4.0</span></div>
                                                 <span class="course-title">Course title: ${review.courseTitle}</span>
+                                                <input type="hidden" value="${review.courseTitle}" name="courseTitle">
                                                 <span class="teacher-name">Teacher name: ${review.teacherName}</span>
                                                 <input type="hidden" value="${review.teacherName}" name="teacherName">
+                                                <span>Username: ${review.username}</span>
+                                                <input type="hidden" value="${review.username}" name="username">
                                                 <span class="date-posted">Date Posted: ${review.datePosted}</span>
                                                 <input type="hidden" value="${review.datePosted}" name="datePosted">
                                             </div>
                                             <div class="update-delete-buttons">
-                                                <button type="submit">Save</button>
+                                                <button type="submit" class="save-button">Save</button>
                                                 <button type="reset" class="cancel-edit">Cancel</button>
                                                 <span class="edit-review">Edit</span>
                                                 <span class="delete-review">Delete</span>
                                             </div>
                                         </div>
-                                        <div class="review-info-mid-container">
-                                            <span class="review-info-rating">Presentation: </span><input type="number" min="1.0" max="5.0" value="${review.presentation}" class="rating-input" name="presentation">
-                                            <span class="review-info-rating">Outgoing: </span><input  type="number" min="1.0" max="5.0" value="${review.outgoing}" class="rating-input" name="outgoing">
-                                            <span class="review-info-rating">Subject knowledge: </span><input  type="number" min="1.0" max="5.0" value="${review.subjectKnowledge}" class="rating-input" name="subjectKnowledge">
-                                            <span class="review-info-rating">Listening: </span><input type="number" min="1.0" max="5.0"  value="${review.listening}" class="rating-input" name="listening">
-                                            <span class="review-info-rating">Communication: </span><input type="number" min="1.0" max="5.0" value="${review.communication}" class="rating-input" name="communication">
-                                            <span class="review-info-rating">Availability: </span><input  type="number" min="1.0" max="5.0" value="${review.availability}" class="rating-input" name="availability">
-                                        </div>
+                                        <fieldset disabled>
+                                            <div class="review-info-mid-container">
+                                                <span class="review-info-rating">Presentation: </span><input type="number" min="1.0" max="5.0" value="${review.presentation}" class="rating-input" name="presentation">
+                                                <span class="review-info-rating">Outgoing: </span><input  type="number" min="1.0" max="5.0" value="${review.outgoing}" class="rating-input" name="outgoing">
+                                                <span class="review-info-rating">Subject knowledge: </span><input  type="number" min="1.0" max="5.0" value="${review.subjectKnowledge}" class="rating-input" name="subjectKnowledge">
+                                                <span class="review-info-rating">Listening: </span><input type="number" min="1.0" max="5.0"  value="${review.listening}" class="rating-input" name="listening">
+                                                <span class="review-info-rating">Communication: </span><input type="number" min="1.0" max="5.0" value="${review.communication}" class="rating-input" name="communication">
+                                                <span class="review-info-rating">Availability: </span><input  type="number" min="1.0" max="5.0" value="${review.availability}" class="rating-input" name="availability">
+                                            </div>
                                         <div class="comment-display"><textarea class="comment" placeholder="${review.comment}" name="comment"></textarea></div>
+                                        </fieldset>
                                     </div>
-                                </fieldset>
                             </form>
                             `
                 }
@@ -83,7 +86,6 @@ class IndexPage extends BaseClass {
                                         <div class="total-rating-container"><span class="total-rating">${review.totalRating}</span></div>
                                         <span class="course-title">Course title: ${review.courseTitle}</span>
                                         <span class="teacher-name">Teacher name: ${review.teacherName}</span>
-                                        <span>Username; ${review.username}</span>
                                         <span class="date-posted">Date Posted: ${review.datePosted}</span>
                                     </div>
                                     <div class="review-info-mid-container">
@@ -160,7 +162,7 @@ class IndexPage extends BaseClass {
     async onCreateReview(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-
+        grecaptcha.reset();
         let createReviewForm = document.getElementById("create-review-form");
         let formData = new FormData(createReviewForm);
         let teacherName = formData.get('teacherName');
@@ -188,11 +190,14 @@ class IndexPage extends BaseClass {
     async onUpdateReview(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        let formData = new FormData(event);
+        const form = event.srcElement.closest('.review-container');
+        let formData = new FormData(form);
 
         let teacherName = formData.get('teacherName');
         let datePosted = formData.get('datePosted');
+        let courseTitle = formData.get('courseTitle');
         let comment = formData.get('comment');
+        let username = formData.get('username');
         let presentation = formData.get('presentation');
         let outgoing = formData.get('outgoing');
         let subjectKnowledge = formData.get('subjectKnowledge');
@@ -201,7 +206,7 @@ class IndexPage extends BaseClass {
         let availability = formData.get('availability');
 
         const updatedReview = await this.client.updateReview(
-            teacherName, datePosted, comment,presentation,
+            teacherName, datePosted, courseTitle, comment, username, presentation,
             availability,outgoing, listening, communication,
             subjectKnowledge, this.errorHandler);
 
@@ -223,13 +228,14 @@ class IndexPage extends BaseClass {
 
             let teacherName = formData.get('teacherName');
             let datePosted = formData.get('datePosted');
+            let courseTitle = formData.get('courseTitle');
 
             const deletedReview = await this.client.deleteReview(
-                teacherName, datePosted, this.errorHandler);
+                teacherName, datePosted, courseTitle, this.errorHandler);
 
             if (deletedReview) {
                 form.remove();
-                this.showMessage(`Deleted a review for ${deletedReview.teacherName}`)
+                this.showMessage(`Deleted a review for ${teacherName}`)
             } else {
                 this.errorHandler("Error creating!  Try again...");
             }
@@ -237,13 +243,15 @@ class IndexPage extends BaseClass {
     }
 
     enableForm(event) {
-        const fieldset = event.srcElement.closest('fieldset');
+        const editButton = event.srcElement;
+        const fieldset = editButton.closest('.review-info-top-container').nextElementSibling;
         fieldset.disabled = false;
     }
     disableForm(event) {
-        const form = event.srcElement.closest('.review-container');
+        const editButton = event.srcElement;
+        const form = editButton.closest('.review-container');
         form.reset();
-        const fieldset = event.srcElement.closest('fieldset');
+        const fieldset = editButton.closest('.review-info-top-container').nextElementSibling;
         fieldset.disabled = true;
     }
 
@@ -252,7 +260,7 @@ class IndexPage extends BaseClass {
         const editButtons = document.querySelectorAll('.edit-review');
         const cancelButtons = document.querySelectorAll('.cancel-edit');
         const deleteButtons = document.querySelectorAll('.delete-review');
-
+        const saveButtons = document.querySelectorAll('.save-button');
         for (let button of editButtons) {
             button.addEventListener('click', this.enableForm);
         }
@@ -262,7 +270,11 @@ class IndexPage extends BaseClass {
         for (let button of deleteButtons) {
             button.addEventListener('click', this.onDeleteReview);
         }
+        for (let button of saveButtons) {
+            button.addEventListener('click', this.onUpdateReview);
+        }
     }
+
 }
 
 /**

@@ -80,7 +80,9 @@ public class ReviewController {
             Review review = new Review();
             review.setTeacherName(reviewUpdateRequest.getTeacherName());
             review.setDatePosted(reviewUpdateRequest.getDatePosted());
+            review.setCourseTitle(reviewUpdateRequest.getCourseTitle());
             review.setComment(reviewUpdateRequest.getComment());
+            review.setUsername(reviewUpdateRequest.getUsername());
             review.setPresentation(reviewUpdateRequest.getPresentation());
             review.setOutgoing(reviewUpdateRequest.getOutgoing());
             review.setSubjectKnowledge(reviewUpdateRequest.getSubjectKnowledge());
@@ -100,6 +102,7 @@ public class ReviewController {
         Review review = new Review();
         review.setTeacherName(deleteRequest.getTeacherName());
         review.setDatePosted(deleteRequest.getDatePosted());
+        review.setCourseTitle(deleteRequest.getCourseTitle());
         try {
             reviewService.deleteReview(review);
             return ResponseEntity.accepted().build();
