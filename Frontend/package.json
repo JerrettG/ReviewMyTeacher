@@ -21,6 +21,7 @@
     "clean-webpack-plugin": "^4.0.0",
     "dotenv-webpack": "^8.0.1",
     "express": "^4.18.2",
+    "js-joda": "^1.11.0",
     "toastify-js": "^1.11.2",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
