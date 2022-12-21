@@ -1,20 +1,21 @@
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
     --primary-color: #2d2d2d;
-    --secondary-color: #105e10;
+    --secondary-color: #00664B;
     --error-color: rgba(194, 0, 0, 0.71);
 }
 
 body{
     margin: 0;
     font-family: 'Open Sans', sans-serif;
-    background: white;
+    background: #38686A;
 }
 
 a {
     color: white;
 }
 .logo {
+    padding-left: 2em;
     font-size: large;
     color: white;
 }
@@ -73,6 +74,14 @@ a {
     display: none;
 }
 
+img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+}
+
 
 .account-dropdown-content {
     display: none;
@@ -122,7 +131,6 @@ a {
 }
 
 select{
-    size: 5;
     overflow-y: scroll;
 }
 
@@ -137,7 +145,7 @@ select{
 }
 
 #create-review-form {
-    background-color: lightgray;
+    background-color: #ADADAD;
     padding: 2em;
     display: flex;
     flex-direction: column;

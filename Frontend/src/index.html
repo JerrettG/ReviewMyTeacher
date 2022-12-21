@@ -48,7 +48,7 @@
             <div class="search-by-container">
                 <label>Search by Course Title:
                 <form id="search-by-course-form">
-                    <select class="course-selection" id="selected-course">
+                    <select class="course-selection" id="selected-course" onmousedown="if(this.options.length>6){this.size=6;}" onchange='this.size=0;' onblur="this.size=0;">
                         <option>Math 101</option>
                         <option>Sci 101</option>
                         <option>Eng 101</option>
@@ -56,14 +56,16 @@
                         <option>Workshop</option>
                         <option>Music Theory</option>
                     </select>
-                    <button>Search</button>
+                    <div>
+                        <button class="search-button">Search</button>
+                    </div>
                 </form>
                 </label>
             </div>
             <div class="search-by-container">
                 <label>Search by Teacher Name:
                 <form id="search-by-teacher-form">
-                    <select class="teacher-selection" id="selected-teacher">
+                    <select class="teacher-selection" id="selected-teacher"onmousedown="if(this.options.length>6){this.size=6;}" onchange='this.size=0;' onblur="this.size=0;">
                         <option>Sam Smith</option>
                         <option>John Doe</option>
                         <option>Lisa Wreight</option>
@@ -77,7 +79,9 @@
                         <option>Johnny Kreider</option>
                         <option>Austin Andrews</option>
                     </select>
-                    <button>Search</button>
+                    <div>
+                        <button class="search-button">Search</button>
+                    </div>
                 </form>
                 </label>
             </div>
@@ -266,14 +270,12 @@
             <textarea required form="create-review-form" name="comment" class="comment-text-box"></textarea>
             <div class="g-recaptcha" data-sitekey="6Ld3sZEjAAAAAHYtJa6aVNslXKj9ai2ij81_IjBx" data-callback="captcha_filled"
                  data-expired-callback="captcha_expired"></div>
-
             <button id="create-review-form-submit" disabled>Submit</button>
         </form>
     </section>
     <section>
         <div class="filter-buttons-container">
             <button id="sort-button">Sort by</button>
-
         </div>
         <div class="result-info" id="result-area">
         </div>
