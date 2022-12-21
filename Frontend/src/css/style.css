@@ -1,27 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Open+Sans&display=swap');
 :root {
     /* css variables: https://developer.mozilla.org/en-US/docs/Web/CSS/var */
-    --primary-color: #2d2d2d;
-    --secondary-color: #00664B;
+    --primary-color: #495159;
+    --navbar: #2d2d2d;
+    --chalk-yellow: #EEE82C;
+    --chalk-brd-green: #00664B;
+    --chalk-brd-border: #AF855A;
+    --primary-color-rgb: 73,81,89;
+    --navbar-rgb: 45,45,45;
+    --chalk-yellow-rgb: 238,232,44;
+    --chalk-brd-green-rgb: 0,102,75;
+    --chalk-brd-border-rgb: 175,133,90;
     --error-color: rgba(194, 0, 0, 0.71);
 }
 
 body{
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
-    background: #38686A;
+    font-family: 'Fredericka the Great', cursive;
+    color: white;
+    background: #f1f1e6;
 }
-
 a {
     color: white;
+    text-decoration: none;
 }
 .logo {
     padding-left: 2em;
     font-size: large;
-    color: white;
+    
 }
 
 .navbar {
-    background-color: #2d2d2d;
+    background-color: var(--navbar);
     box-shadow: 1px 1px 4px 0 rgba(0,0,0, 0.5);
     width: 100%;
     z-index: 3;
@@ -36,6 +46,7 @@ a {
 
 .account-dropbutton {
     color: white;
+    font-family: 'Fredericka the Great', cursive;
     column-gap: 0.5em;
     background: none;
     border: none;
@@ -89,7 +100,7 @@ img {
     position: absolute;
     top: 3.5em;
     float: right;
-    background-color: #2d2d2d;
+    background-color: var(--navbar);
     min-width: 80px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -112,56 +123,126 @@ img {
     background-color: #646464;
     cursor: pointer;
 }
+#search-forms-section {
+    background: linear-gradient(0deg, rgba(21, 21, 21, 0.2), rgba(21, 21, 21, 0.7)), url("https://img.freepik.com/premium-photo/work-from-home-desk-office-with-laptop-blank-notepad-coffee-cup-pen-wood-table-flat-lay-top-view-copy-spce_545582-1402.jpg?w=2000");
+    background-size: cover;
+    height: 400px;
+    width: 100%;
+}
+select, .search-button{
+    -webkit-appearance: none;
+    font-size: large;
+    font-family: 'Fredericka the Great', cursive;
+    background: none;
+    color:white;
+    border: solid thin var(--chalk-brd-green);
+}
+.search-button:hover, select:hover {
+    border: solid thin gray;
+    cursor: pointer;
+}
 
+option {
+    transition: all ease 0.2s;
+    z-index: 5;
+}
+option:hover {
+    background-color: lightgrey;
+}
 .search-form-containers {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 2em;
-        width: 400px;
-        height: 150px;
-        display: flex;
-        flex-direction: row;
-        align-content: center;
+    background-color: var(--chalk-brd-border);
+    padding: 2px;
+    width: 60%;
+    min-width: 360px;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    font-size: x-large;
+    z-index: 5;
 }
 
 .search-by-container{
-    background-color: var(--secondary-color);
-    height: 3em;
-    padding: 10px;
-}
-
-select{
-    overflow-y: scroll;
-}
-
-#search-submission-forms {
-    margin-top: 2em;
     display: flex;
-    justify-content: space-around;
+    background-color: var(--chalk-brd-green);;
+    padding: 10px;
+    width: 100%;
+    height: 90%;
+    flex-direction: column;
     align-items: center;
 }
-#search-form {
-    border: solid red;
+
+
+#search-by-course-form, #search-by-teacher-form {
+    display: flex;
+    column-gap: 5px;
+}
+.chalk-bar {
+    background: var(--chalk-yellow);
+    width: 5px;
+    height: 20px;
+    position: relative;
+    top: 98px;
+    right: 50px;
+    z-index: 5;
+    transform: rotate(90deg);
+}
+#white-chalk-search {
+    right: 200px;
+    background: white;
+}
+#chalk-eraser-bottom, #chalk-eraser-top {
+    right: 300px;
+    height: 25px;
+}
+#chalk-eraser-top {
+    top: 95px;
+    right: 305px;
+    background: tan;
+}
+#chalk-eraser-bottom {
+    background: black;
+}
+
+
+#submission-forms-section, #search-forms-section {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #create-review-form {
-    background-color: #ADADAD;
+    background-color: var(--primary-color);
     padding: 2em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     row-gap: 1em;
+    width: 80%;
+    min-width: 900px;
+    height: 600px;
+    box-shadow: 1px 1px 5px 4px rgba(0,0,0,10%);
+    border-bottom: solid thick var(--chalk-brd-border);
 }
 .rating {
     display: flex;
     width: 100%;
     justify-content: space-around;
 }
+.ratings-selection-comment-container {
+    display: flex;
+    justify-content: space-between;
 
+}
+.ratings-selection-container {
+    width: 100%;
+}
 .rating-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
 
 .rating-container p {
     padding-top: 0.5em;
@@ -204,17 +285,43 @@ select{
     color: limegreen;
     cursor: pointer;
 }
-#comment-label {
-    margin-bottom: 0;
-}
-.comment-text-box {
+
+#comment-text-box {
+    background-color: var(--chalk-brd-green);
+    outline: solid thin var(--chalk-brd-border);
+    color: white;
+    font-family: 'Fredericka the Great', cursive;
     min-width: 400px;
     max-width: 400px;
     width: 400px;
     min-height: 200px;
-    height: 200px;
+    height: 100%;
     padding: 1em;
 }
+#create-review-teacher-select, #create-review-course-select {
+    border: solid thin var(--primary-color);
+}
+
+#create-review-form-submit {
+    font-family: 'Fredericka the Great', cursive;
+    width: 30%;
+    color: white;
+    padding: 0.5em;
+    border: solid thin white;
+    transition: all 0.2s ease;
+}
+#create-review-form-submit:enabled {
+    background: none;
+}
+
+#create-review-form-submit:hover:enabled {
+   background: var(--chalk-brd-green);
+}
+
+#create-review-form-submit:hover:enabled {
+    background-color: #59A96A;
+}
+
 .result-info {
     display: flex;
     flex-direction: column;
@@ -229,7 +336,7 @@ select{
     min-width: 800px;
     width: 100%;
     min-height: 400px;
-    background-color: var(--secondary-color);
+    background-color: var(--chalk-brd-green);;
 }
 
 .review-info {
@@ -323,4 +430,11 @@ select{
 
 fieldset {
     display: contents;
+}
+
+#rc-imageselect, .g-recaptcha  {
+    transform:scale(0.77);
+    -webkit-transform:scale(0.77);
+    transform-origin:0 0;
+    -webkit-transform-origin:0 0;
 }
