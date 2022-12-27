@@ -68,5 +68,6 @@ const logout = () => {
 };
 
 const account = () => {
-    document.getElementById("search-submission-forms").remove();
+    document.getElementById("search-forms-section").remove();
+    document.getElementById("submission-forms-section").remove();
 }
