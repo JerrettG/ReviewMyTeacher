@@ -137,6 +137,11 @@ select, .search-button{
     color:white;
     border: solid thin var(--chalk-brd-green);
 }
+
+#create-review-course-select, #create-review-teacher-select{
+    background: var(--primary-color);
+}
+
 .search-button:hover, select:hover {
     border: solid thin gray;
     cursor: pointer;
