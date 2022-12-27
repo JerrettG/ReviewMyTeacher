@@ -13,7 +13,7 @@ class IndexPage extends BaseClass {
         this.bindClassMethods([
             'onCreateReview', 'onGetByTeacherName',
             'onGetByCourseTitle', 'onGetByUsername','onUpdateReview',
-            'onDeleteReview', 'renderReviews','editFunctionality'], this);
+            'onDeleteReview', 'renderReviews','editFunctionality','sortAscending','sortDescending'], this);
         this.dataStore = new DataStore();
     }
 
@@ -22,6 +22,8 @@ class IndexPage extends BaseClass {
         document.getElementById('search-by-course-form').addEventListener('submit', this.onGetByCourseTitle);
         document.getElementById('create-review-form').addEventListener('submit', this.onCreateReview);
         document.getElementById('account-link').addEventListener('click', this.onGetByUsername);
+        document.getElementById('ascending-sort-button').addEventListener('click', this.sortAscending);
+        document.getElementById('descending-sort-button').addEventListener('click', this.sortDescending);
         this.client = new ReviewClient();
 
         this.dataStore.addChangeListener(this.renderReviews);
@@ -278,6 +280,23 @@ class IndexPage extends BaseClass {
             button.addEventListener('click', this.onUpdateReview);
         }
     }
+    sortAscending(){
+        const reviews = this.dataStore.get("reviews");
+        reviews.sort(function (a, b){
+            return a.totalRating - b.totalRating;
+        });
+        this.dataStore.set("reviews", reviews);
+
+    }
+    sortDescending(){
+        const reviews = this.dataStore.get("reviews");
+        reviews.sort(function (a, b){
+            return a.totalRating - b.totalRating;
+        }).reverse();
+        this.dataStore.set("reviews", reviews);
+
+    }
+
 
 }
 

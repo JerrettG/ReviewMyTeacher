@@ -267,17 +267,17 @@ option:hover {
 }
 .rating-2-label:hover,
 .star2:checked + label{
-    color: darkred;
+    color: rgba(255, 0, 0, 0.5);
     cursor: pointer;
 }
 .rating-3-label:hover,
 .star3:checked + label{
-    color: darkgoldenrod;
+    color: #b8af0b;
     cursor: pointer;
 }
 .rating-4-label:hover,
 .star4:checked + label{
-    color: darkgreen;
+    color: rgba(50, 205, 50, 0.7);
     cursor: pointer;
 }
 .rating-5-label:hover,
