@@ -379,10 +379,14 @@ option:hover {
     font-size: 2em;
 }
 
-.comment-display {
+.comment-display{
     height: 175px;
     background-color: lightgrey;
     padding: 1em;
+
+}
+.comment-display span, .comment, .comment::placeholder{
+    color: var(--primary-color);
 }
 
 .filter-buttons-container {
