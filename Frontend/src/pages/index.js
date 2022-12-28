@@ -62,8 +62,8 @@ class IndexPage extends BaseClass {
                                                 <input type="hidden" value="${review.datePosted}" name="datePosted">
                                             </div>
                                             <div class="update-delete-buttons">
-                                                <button type="submit" class="save-button">Save</button>
-                                                <button type="reset" class="cancel-edit">Cancel</button>
+                                                <button type="submit" class="save-button" disabled>Save</button>
+                                                <button type="reset" class="cancel-edit" disabled>Cancel</button>
                                                 <span class="edit-review">Edit</span>
                                                 <span class="delete-review">Delete</span>
                                             </div>
@@ -128,7 +128,7 @@ class IndexPage extends BaseClass {
         this.dataStore.set("reviews", null);
 
         let result = await this.client.getReviewsByTeacherName(teacherName, this.errorHandler);
-        this.dataStore.set("reviews", result);
+        this.dataStore.set("reviews", result.reverse());
         this.dataStore.set("getReviewsForUser", false);
         if (result) {
             this.showMessage(`Reviews for ${teacherName} retrieved!`)
@@ -144,7 +144,7 @@ class IndexPage extends BaseClass {
         this.dataStore.set("reviews", null);
 
         let result = await this.client.getReviewsByCourseTitle(courseTitle, this.errorHandler);
-        this.dataStore.set("reviews", result);
+        this.dataStore.set("reviews", result.reverse());
         this.dataStore.set("getReviewsForUser", false);
         if (result) {
             this.showMessage(`Reviews for ${courseTitle} retrieved!`)
@@ -251,12 +251,28 @@ class IndexPage extends BaseClass {
     enableForm(event) {
         const editButton = event.srcElement;
         const fieldset = editButton.closest('.review-info-top-container').nextElementSibling;
+        let ratingInputs = fieldset.getElementsByClassName('rating-input');
+        for (let ratingInput of ratingInputs) {
+            ratingInput.style.border = 'solid thin white';
+        }
+        let cancelButton = editButton.previousElementSibling;
+        cancelButton.disabled = false;
+        cancelButton.previousElementSibling.disabled = false;
+        fieldset.getElementsByClassName('comment').item(0).style.border = 'solid thin gray';
         fieldset.disabled = false;
     }
     disableForm(event) {
-        const editButton = event.srcElement;
-        const form = editButton.closest('.review-container');
+        const cancelButton = event.srcElement;
+        let saveButton = cancelButton.previousElementSibling;
+        cancelButton.disabled = true;
+        saveButton.disabled = true;
+        const form = cancelButton.closest('.review-container');
         form.reset();
+        let ratingInputs = form.getElementsByClassName('rating-input');
+        for (let ratingInput of ratingInputs) {
+            ratingInput.style.border = 'solid thin var(--chalk-brd-green)';
+        }
+        form.getElementsByClassName('comment').item(0).style.border = 'solid thin lightgray';
         const fieldset = editButton.closest('.review-info-top-container').nextElementSibling;
         fieldset.disabled = true;
     }

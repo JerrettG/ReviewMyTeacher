@@ -28,7 +28,7 @@ export default class BaseClass {
             position: 'right',
             close: true,
             style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)"
+                background: "var(--chalk-brd-green)"
             }
         }).showToast();
     }
@@ -41,7 +41,7 @@ export default class BaseClass {
             position: 'right',
             close: true,
             style: {
-                background: "linear-gradient(to right, rgb(255, 95, 109), rgb(255, 195, 113))"
+                background: "var(--error-color)"
             }
         }).showToast();
     }

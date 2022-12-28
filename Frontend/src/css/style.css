@@ -11,7 +11,7 @@
     --chalk-yellow-rgb: 238,232,44;
     --chalk-brd-green-rgb: 0,102,75;
     --chalk-brd-border-rgb: 175,133,90;
-    --error-color: rgba(194, 0, 0, 0.71);
+    --error-color: rgba(194, 0, 0, 1);
 }
 
 body{
@@ -28,6 +28,9 @@ a {
     padding-left: 2em;
     font-size: large;
     
+}
+
+section {
 }
 
 .navbar {
@@ -56,11 +59,12 @@ a {
     justify-content: flex-end;
     align-items: center;
 }
-.nav-links, .account-dropdown{
+.nav-links, .account-dropdown {
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
+
 .nav-link {
     text-decoration: none;
     display: flex;
@@ -207,6 +211,75 @@ option:hover {
 #chalk-eraser-bottom {
     background: black;
 }
+/*Apple art credited to https://likiipedia.com/portfolio/how-to-make-an-apple-using-only-css/*/
+.apple-wrapper {
+    top: 85px;
+    position: relative;
+    left: -375px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.apple {
+    display: flex;
+}
+
+.apple-left {
+    width: 15px;
+    height: 25px;
+    background: #f54b40;
+
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+    border-top-right-radius: 50%;
+
+    position: relative;
+    left: 5px;
+
+    z-index: 1;
+}
+
+.apple-right {
+    width: 15px;
+    height: 25px;
+    background: #f54b40;
+
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-top-left-radius: 50%;
+
+    z-index: 1;
+    position: relative;
+    right: 1px;
+}
+.stem {
+    background: #088a00;
+    width: 2px;
+    height: 6px;
+    z-index: 1;
+    position: relative;
+    top: 3px;
+}
+.apple-shine {
+    background: white;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+
+    width: 2px;
+    height: 4px;
+    z-index: 1;
+
+    transform: rotate(-45deg);
+
+    position: relative;
+    right: 12px;
+    top: 5px;
+}
 
 
 #submission-forms-section, #search-forms-section {
@@ -237,10 +310,17 @@ option:hover {
 .ratings-selection-comment-container {
     display: flex;
     justify-content: space-between;
+    column-gap: 1em;
 
 }
 .ratings-selection-container {
     width: 100%;
+}
+
+.comment-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: .5em;
 }
 .rating-container {
     display: flex;
@@ -302,6 +382,7 @@ option:hover {
     min-height: 200px;
     height: 100%;
     padding: 1em;
+    resize: none;
 }
 #create-review-teacher-select, #create-review-course-select {
     border: solid thin var(--primary-color);
@@ -330,11 +411,12 @@ option:hover {
 .result-info {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     row-gap: 1em;
-    margin: 3em;
+    margin: 3em auto;
     background: var(--primary-color);
     padding: 1em;
-    min-width: 800px;
+    width: 1200px;
     min-height: 400px;
 }
 .review-container {
@@ -377,6 +459,7 @@ option:hover {
 }
 .total-rating {
     font-size: 2em;
+    color: var(--primary-color);
 }
 
 .comment-display{
@@ -390,11 +473,11 @@ option:hover {
 }
 
 .filter-buttons-container {
-    min-width: 400px;
-    margin: 3em;
+    margin: 3em auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 1230px;
 }
 .update-delete-buttons {
     column-gap: 1em;
@@ -429,12 +512,22 @@ option:hover {
 
 }
 
-.rating-input {
-
+.comment {
+    font-family: 'Fredericka the Great', cursive;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    resize: none;
+    background: none;
+    border: solid thin lightgrey;
 }
 
-.comment {
-
+.rating-input {
+    font-family: 'Fredericka the Great', cursive;
+    color: white;
+    background: none;
+    border: solid thin var(--chalk-brd-green);
 }
 
 fieldset {
