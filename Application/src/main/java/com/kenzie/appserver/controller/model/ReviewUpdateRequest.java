@@ -13,10 +13,11 @@ public class ReviewUpdateRequest {
     private double communication;
     private double availability;
 
-    public ReviewUpdateRequest(String teacherName, String datePosted, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
+    public ReviewUpdateRequest(String teacherName, String datePosted, String courseTitle, String comment, double presentation, double outgoing, double subjectKnowledge, double listening, double communication, double availability) {
         this.teacherName = teacherName;
         this.datePosted = datePosted;
         this.comment = comment;
+        this.courseTitle = courseTitle;
         this.presentation = presentation;
         this.outgoing = outgoing;
         this.subjectKnowledge = subjectKnowledge;

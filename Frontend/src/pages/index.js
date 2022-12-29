@@ -77,7 +77,7 @@ class IndexPage extends BaseClass {
                                                 <span class="review-info-rating">Communication: </span><input type="number" min="1.0" max="5.0" value="${review.communication}" class="rating-input" name="communication">
                                                 <span class="review-info-rating">Availability: </span><input  type="number" min="1.0" max="5.0" value="${review.availability}" class="rating-input" name="availability">
                                             </div>
-                                        <div class="comment-display"><textarea class="comment" placeholder="${review.comment}" name="comment"></textarea></div>
+                                        <div class="comment-display"><textarea class="comment" name="comment">${review.comment}</textarea></div>
                                         </fieldset>
                                     </div>
                             </form>
@@ -175,7 +175,8 @@ class IndexPage extends BaseClass {
         let courseTitle = formData.get('courseTitle');
         let username =  document.getElementById('logged-in-welcome').innerText;
         let comment = formData.get('comment');
-        comment = comment.replaceAll()
+        comment = comment.replaceAll(/[`~@#$^*_;<>\{\}\[\]\\\/]/gi, '');
+        console.log(comment);
         let presentation = formData.get('presentation');
         let availability = formData.get('availability');
         let outgoing = formData.get('outgoing');
