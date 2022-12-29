@@ -5,11 +5,10 @@ public class ReviewDeleteRequest {
     private String datePosted;
     private String courseTitle;
 
-    public ReviewDeleteRequest() {}
-
-    public ReviewDeleteRequest(String teacherName, String datePosted) {
-        this.teacherName = teacherName;
+    public ReviewDeleteRequest(String teacherName, String datePosted, String courseTitle) {
+        this.teacherName =teacherName;
         this.datePosted = datePosted;
+        this.courseTitle = courseTitle;
     }
 
     public String getTeacherName() {

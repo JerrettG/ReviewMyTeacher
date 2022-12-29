@@ -117,6 +117,7 @@ public class ReviewControllerTest {
         ReviewUpdateRequest reviewUpdateRequest = new ReviewUpdateRequest(
                 reviewResponse.getTeacherName(),
                 reviewResponse.getDatePosted(),
+                reviewResponse.getCourseTitle(),
                 mockNeat.strings().val(),
                 reviewResponse.getPresentation(),
                 reviewResponse.getOutgoing(),
@@ -136,8 +137,9 @@ public class ReviewControllerTest {
     public void updateReview_reviewDoesNotExist_reviewIsNotUpdated() throws Exception {
         ReviewUpdateRequest reviewUpdateRequest = new ReviewUpdateRequest(
                 mockNeat.strings().val(), mockNeat.strings().val(), mockNeat.strings().val(),
+                mockNeat.strings().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
                 mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val(),
-                mockNeat.doubles().val(), mockNeat.doubles().val(), mockNeat.doubles().val());
+                mockNeat.doubles().val());
         queryUtility.reviewControllerClient.updateReview(reviewUpdateRequest)
                 .andExpect(status().isNotFound());
     }
@@ -152,7 +154,7 @@ public class ReviewControllerTest {
         String json = queryUtility.reviewControllerClient.createReview(reviewCreateRequest)
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
         ReviewResponse reviewResponse = mapper.readValue(json, ReviewResponse.class);
-        ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(reviewResponse.getTeacherName(), reviewResponse.getDatePosted());
+        ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(reviewResponse.getTeacherName(), reviewResponse.getDatePosted(), reviewResponse.getCourseTitle());
         queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
                 .andExpect(status().isAccepted());
     }
@@ -160,7 +162,7 @@ public class ReviewControllerTest {
     @Test
     public void deleteReview_reviewDoesNotExist_reviewDoesNotDelete() throws Exception{
         ReviewDeleteRequest reviewDeleteRequest = new ReviewDeleteRequest(mockNeat.strings().val(),
-                mockNeat.strings().val());
+                mockNeat.strings().val(), mockNeat.strings().val());
         queryUtility.reviewControllerClient.deleteReview(reviewDeleteRequest)
                 .andExpect(status().isNotFound());
     }
