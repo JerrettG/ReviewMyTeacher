@@ -29,6 +29,10 @@ a {
     font-size: large;
     
 }
+button {
+    font-family: 'Fredericka the Great', cursive;
+    padding: 5px;
+}
 
 section {
 }
@@ -63,6 +67,7 @@ section {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    padding: 0 1em;
 }
 
 .nav-link {
