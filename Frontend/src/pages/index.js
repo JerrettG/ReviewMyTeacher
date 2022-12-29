@@ -52,9 +52,9 @@ class IndexPage extends BaseClass {
                                         <div class="review-info-top-container">
                                             <div class="course-teacher-total-container">
                                                 <div class="total-rating-container"><span class="total-rating">${totalRating}</span></div>
-                                                <span class="course-title">Course title: ${review.courseTitle}</span>
+                                                <span class="course-title">Course Title: ${review.courseTitle}</span>
                                                 <input type="hidden" value="${review.courseTitle}" name="courseTitle">
-                                                <span class="teacher-name">Teacher name: ${review.teacherName}</span>
+                                                <span class="teacher-name">Teacher Name: ${review.teacherName}</span>
                                                 <input type="hidden" value="${review.teacherName}" name="teacherName">
                                                 <span>Username: ${review.username}</span>
                                                 <input type="hidden" value="${review.username}" name="username">
@@ -90,8 +90,8 @@ class IndexPage extends BaseClass {
                                 <div class="review-info">
                                     <div class="review-info-top-container">
                                         <div class="total-rating-container"><span class="total-rating">${totalRating}</span></div>
-                                        <span class="course-title">Course title: ${review.courseTitle}</span>
-                                        <span class="teacher-name">Teacher name: ${review.teacherName}</span>
+                                        <span class="course-title">Course Title: ${review.courseTitle}</span>
+                                        <span class="teacher-name">Teacher Name: ${review.teacherName}</span>
                                         <span class="date-posted">Date Posted: ${datePosted}</span>
                                     </div>
                                     <div class="review-info-mid-container">
@@ -175,6 +175,7 @@ class IndexPage extends BaseClass {
         let courseTitle = formData.get('courseTitle');
         let username =  document.getElementById('logged-in-welcome').innerText;
         let comment = formData.get('comment');
+        comment = comment.replaceAll()
         let presentation = formData.get('presentation');
         let availability = formData.get('availability');
         let outgoing = formData.get('outgoing');
