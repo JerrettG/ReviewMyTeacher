@@ -417,6 +417,7 @@ option:hover {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     row-gap: 1em;
     margin: 3em auto;
     background: var(--primary-color);
@@ -545,4 +546,8 @@ fieldset {
     -webkit-transform:scale(0.77);
     transform-origin:0 0;
     -webkit-transform-origin:0 0;
+}
+
+#no-results{
+    font-size: xxx-large;
 }

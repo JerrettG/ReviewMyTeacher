@@ -111,7 +111,7 @@ class IndexPage extends BaseClass {
             resultArea.innerHTML = html;
         }
         else {
-            resultArea.innerHTML = "No reviews found";
+            resultArea.innerHTML = "<p id='no-results'>No Reviews Found</p>";
         }
         if (window.onload) {
             this.editFunctionality();
@@ -220,6 +220,7 @@ class IndexPage extends BaseClass {
             subjectKnowledge, this.errorHandler);
 
         if (updatedReview) {
+            await this.onGetByUsername();
             this.showMessage(`Updated a review for ${updatedReview.teacherName}`)
         } else {
             this.errorHandler("Error creating!  Try again...");
@@ -244,6 +245,7 @@ class IndexPage extends BaseClass {
 
             if (deletedReview) {
                 form.remove();
+                await this.onGetByUsername();
                 this.showMessage(`Deleted a review for ${teacherName}`)
             } else {
                 this.errorHandler("Error creating!  Try again...");
