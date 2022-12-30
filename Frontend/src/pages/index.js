@@ -188,7 +188,8 @@ class IndexPage extends BaseClass {
             teacherName, courseTitle, username, comment,presentation,
             availability,outgoing, listening, communication,
             subjectKnowledge, this.errorHandler);
-
+        createReviewForm.reset();
+        document.getElementById("create-review-form-submit").disabled = true;
         if (createdReview) {
             this.showMessage(`Created a review for ${createdReview.teacherName}`)
         } else {
