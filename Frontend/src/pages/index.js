@@ -123,7 +123,7 @@ class IndexPage extends BaseClass {
     async onGetByTeacherName(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-
+        window.location.href = "#result-area";
         let teacherName = document.getElementById("selected-teacher").value;
         this.dataStore.set("reviews", null);
 
@@ -139,7 +139,7 @@ class IndexPage extends BaseClass {
     async onGetByCourseTitle(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-
+        window.location.href = "#result-area";
         let courseTitle = document.getElementById("selected-course").value;
         this.dataStore.set("reviews", null);
 

@@ -71,7 +71,7 @@ public class ReviewService {
 
     public Review updateReview(Review review) {
         Optional<ReviewEntity> result = reviewRepository.findById(new ReviewPrimaryKey(review.getTeacherName(), review.getDatePosted()));
-        if (!result.isPresent()) {
+        if (result == null || !result.isPresent()) {
             throw new ReviewNotFoundException();
         } else {
             review.calculateAndSetTotalRating();

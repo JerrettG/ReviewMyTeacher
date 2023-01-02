@@ -11,7 +11,6 @@ import java.util.concurrent.TimeUnit;
 public class ReviewCache {
     private final Cache<String, List<Review>> courseTitleCache;
     private final Cache<String, List<Review>> teacherNameCache;
-
     public ReviewCache(int expiry, TimeUnit timeUnit, long maximumSize) {
         this.courseTitleCache = CacheBuilder.newBuilder()
                 .expireAfterWrite(expiry, timeUnit)
@@ -23,7 +22,6 @@ public class ReviewCache {
                 .maximumSize(maximumSize)
                 .concurrencyLevel(Runtime.getRuntime().availableProcessors())
                 .build();
-
     }
 
     public List<Review> getAllReviewsByCourseTitle(String courseTitle){
