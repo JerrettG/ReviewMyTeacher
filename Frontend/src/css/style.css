@@ -380,6 +380,7 @@ option:hover {
     background-color: var(--chalk-brd-green);
     outline: solid thin var(--chalk-brd-border);
     color: white;
+    font-size: 1em;
     font-family: 'Fredericka the Great', cursive;
     min-width: 400px;
     max-width: 400px;
@@ -476,6 +477,7 @@ option:hover {
 }
 .comment-display span, .comment{
     color: var(--primary-color);
+    font-size: 1em;
 }
 
 
